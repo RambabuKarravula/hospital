@@ -1,0 +1,3519 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style=""><head>
+    <meta charset="UTF-8">
+    <title>Enterprise Chain Hospital Platform Architecture Report</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+      /* Document Layout & Typography - Mimicking Word Document */
+      body {
+        font-family: 'Times New Roman', Times, serif;
+        line-height: 1.5;
+        color: #000000;
+        background-color: #ffffff;
+        max-width: 880px; /* A4 width approx */
+        margin: 0 auto;
+        padding: 48px 80px; /* Standard 1-inch margins */
+        box-sizing: border-box;
+        text-align: justify;
+      }
+
+      /* Headings */
+      h1 {
+        font-family: Arial, sans-serif;
+        font-size: 24pt;
+        font-weight: bold;
+        color: #2e4053;
+        text-align: center;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+        border-bottom: 2px solid #2e4053;
+        padding-bottom: 10px;
+      }
+
+      h2 {
+        font-family: Arial, sans-serif;
+        font-size: 16pt;
+        font-weight: bold;
+        color: #2874a6;
+        margin-top: 32px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+        text-align: left;
+      }
+
+      h3 {
+        font-family: Arial, sans-serif;
+        font-size: 13pt;
+        font-weight: bold;
+        color: #2e4053;
+        margin-top: 24px;
+        margin-bottom: 8px;
+        text-align: left;
+      }
+
+      h4 {
+        font-family: Arial, sans-serif;
+        font-size: 11pt;
+        font-weight: bold;
+        font-style: italic;
+        margin-top: 18px;
+        margin-bottom: 6px;
+        color: #555;
+        text-align: left;
+      }
+
+      /* Paragraphs */
+      p {
+        margin-bottom: 12pt;
+        font-size: 11pt;
+        text-align: justify;
+      }
+
+      /* Lists */
+      ul,
+      ol {
+        margin-top: 0;
+        margin-bottom: 12pt;
+        padding-left: 24pt;
+      }
+
+      li {
+        margin-bottom: 4pt;
+        font-size: 11pt;
+      }
+
+      /* Tables - Professional/Academic Style */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 10pt;
+        font-family: Arial, sans-serif;
+      }
+
+      th {
+        background-color: #f2f2f2;
+        color: #000;
+        font-weight: bold;
+        text-align: left;
+        padding: 8px;
+        border-bottom: 2px solid #000;
+        border-top: 1px solid #000;
+      }
+
+      td {
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+        vertical-align: top;
+      }
+
+      /* Code Blocks */
+      pre {
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        padding: 12px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 9pt;
+        overflow-x: hidden; /* Avoid scrollbars */
+        white-space: pre-wrap; /* Wrap long lines */
+        margin: 15px 0;
+      }
+
+      code {
+        font-family: 'Courier New', Courier, monospace;
+        background-color: #f5f5f5;
+        padding: 2px 4px;
+        font-size: 10pt;
+      }
+
+      /* Utility Classes */
+      .text-center {
+        text-align: center;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      .italic {
+        font-style: italic;
+      }
+
+      .doc-meta {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-size: 10pt;
+        margin-bottom: 40px;
+        color: #555;
+      }
+
+      .toc {
+        background-color: #fafafa;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 40px;
+      }
+      .toc h3 {
+        margin-top: 0;
+        text-align: center;
+      }
+      .toc ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .toc li {
+        margin-bottom: 6px;
+        border-bottom: 1px dotted #ccc;
+      }
+      .toc-page {
+        float: right;
+      }
+
+      /* Separator */
+      hr {
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 30px 0;
+      }
+
+      /* Architecture Diagram Placeholder Styles (since images are restricted) */
+      .diagram-box {
+        border: 2px dashed #999;
+        background-color: #f9f9f9;
+        padding: 20px;
+        text-align: center;
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+        color: #666;
+        font-size: 10pt;
+      }
+    </style>
+  </head>
+  <body style="">
+    <!-- Document Header -->
+    <div class="text-center">
+      <h1>
+        ENTERPRISE CHAIN HOSPITAL PLATFORM<br><span style="font-size: 16pt; font-weight: normal">Technical Architecture &amp; System Design Report</span>
+      </h1>
+
+      <div class="doc-meta">
+        <p>
+          <strong>Version:</strong> 2.0 | <strong>Status:</strong> Approved | <strong>Confidentiality:</strong> Internal
+          Use Only
+        </p>
+        <p><strong>Date:</strong> October 2023 | <strong>Author:</strong> Principal System Architect</p>
+      </div>
+    </div>
+
+    <!-- Executive Summary -->
+    <h2>1. Executive Summary</h2>
+    <p>
+      This document outlines the comprehensive technical architecture for a multi-tenant, SaaS-based Hospital Management
+      System (HMS) designed to serve large-scale hospital chains. The platform is engineered to support mission-critical
+      healthcare operations including OPD, IPD, Billing, Laboratory, and Pharmacy management across distributed
+      geographical locations.
+    </p>
+    <p>
+      The architecture prioritizes <strong>data isolation</strong>, <strong>high availability (99.99%)</strong>, and
+      <strong>regulatory compliance (HIPAA/GDPR)</strong>. Leveraging a hybrid microservices approach, the system
+      utilizes Python FastAPI for high-performance computational tasks (AI/Analytics) and Node.js for I/O-intensive
+      real-time operations. The frontend is built on a modern React/TypeScript stack using Shadcn UI for consistent
+      enterprise design patterns. Data persistence is managed via a polyglot strategy using PostgreSQL for transactional
+      integrity and Amazon DocumentDB for flexible clinical document storage.
+    </p>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+      <h3>Table of Contents</h3>
+      <ul>
+        <li>1. Executive Summary <span class="toc-page">1</span></li>
+        <li>2. Technology Stack Overview <span class="toc-page">2</span></li>
+        <li>3. High-Level Architecture <span class="toc-page">3</span></li>
+        <li>4. Multi-Tenant Isolation Strategy <span class="toc-page">4</span></li>
+        <li>5. Frontend Architecture <span class="toc-page">5</span></li>
+        <li>6. Backend Microservices Architecture <span class="toc-page">6</span></li>
+        <li>7. Database Architecture Strategy <span class="toc-page">8</span></li>
+        <li>8. Storage &amp; Infrastructure <span class="toc-page">9</span></li>
+        <li>9. Security &amp; Authentication <span class="toc-page">10</span></li>
+        <li>10. Integration &amp; Scalability <span class="toc-page">12</span></li>
+      </ul>
+    </div>
+
+    <!-- Tech Stack -->
+    <h2>2. Technology Stack Overview</h2>
+    <p>The platform utilizes a best-in-class open source stack hosted on AWS infrastructure.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 20%">Layer</th>
+          <th style="width: 30%">Technology</th>
+          <th style="width: 50%">Justification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Frontend</strong></td>
+          <td>React 18, TypeScript, Shadcn UI, Tailwind CSS</td>
+          <td>
+            Type safety prevents runtime errors; Shadcn provides accessible, customizable enterprise components without
+            vendor lock-in.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>API Gateway</strong></td>
+          <td>Nginx / AWS ALB</td>
+          <td>SSL termination, path-based routing, and rate limiting.</td>
+        </tr>
+        <tr>
+          <td><strong>Backend (Compute)</strong></td>
+          <td>Python (FastAPI), Node.js (Express/Nest)</td>
+          <td>
+            <strong>FastAPI:</strong> AI inference, heavy data processing.<br><strong>Node.js:</strong> Real-time
+            sockets, notifications, async I/O.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Database (RDBMS)</strong></td>
+          <td>PostgreSQL 15+</td>
+          <td>ACID compliance for billing, inventory, and patient demographics. Supports JSONB for hybrid schemas.</td>
+        </tr>
+        <tr>
+          <td><strong>Database (NoSQL)</strong></td>
+          <td>Amazon DocumentDB</td>
+          <td>High-throughput storage for unstructured clinical notes, EMR forms, and IoT device logs.</td>
+        </tr>
+        <tr>
+          <td><strong>Object Storage</strong></td>
+          <td>AWS S3</td>
+          <td>Secure, durable storage for medical imaging (DICOM), PDF reports, and static assets.</td>
+        </tr>
+        <tr>
+          <td><strong>Caching</strong></td>
+          <td>Redis (ElastiCache)</td>
+          <td>Session management, caching frequently accessed master data, and pub/sub for real-time events.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- High Level Architecture -->
+    <h2>3. High-Level Architecture</h2>
+    <p>
+      The system follows a <strong>Microservices Architecture</strong> pattern. Traffic enters via Amazon Route53 and
+      CloudFront, passing through AWS WAF (Web Application Firewall) before reaching the Application Load Balancer
+      (ALB). The ALB distributes traffic to ECS Fargate containers hosting the microservices.
+    </p>
+    
+    <div style="text-align: center; margin: 20px 0;">
+      <img src="https://d2908q01vomqb2.cloudfront.net/9e6a55b6b4563e652a23be9d623ca5055c356940/2022/06/13/figure-1-architecture-healthcare-data-lake-microservices.png" alt="Healthcare Microservices Architecture" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; background: white;" data-height-listener-added="true">
+      <p style="font-size: 9pt; color: #666; margin-top: 8px;"><em>Figure 3.1: Healthcare Data Lake and Microservices Architecture</em></p>
+    </div>
+
+    <h3>3.1 Architecture Layers</h3>
+    <table>
+      <tbody><tr>
+        <th>Layer</th>
+        <th>Components</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><strong>Edge Layer</strong></td>
+        <td>Route53, CloudFront CDN, AWS WAF</td>
+        <td>DNS resolution, content delivery, DDoS protection</td>
+      </tr>
+      <tr>
+        <td><strong>Gateway Layer</strong></td>
+        <td>Application Load Balancer (ALB)</td>
+        <td>SSL termination, path-based routing, health checks</td>
+      </tr>
+      <tr>
+        <td><strong>Compute Layer</strong></td>
+        <td>ECS Fargate Clusters</td>
+        <td>Container orchestration for microservices</td>
+      </tr>
+      <tr>
+        <td><strong>Data Layer</strong></td>
+        <td>RDS PostgreSQL, DocumentDB, ElastiCache Redis</td>
+        <td>Persistent storage and caching</td>
+      </tr>
+      <tr>
+        <td><strong>Storage Layer</strong></td>
+        <td>S3 Buckets</td>
+        <td>Object storage for documents and media</td>
+      </tr>
+      <tr>
+        <td><strong>Event Layer</strong></td>
+        <td>Amazon MSK (Kafka) / EventBridge</td>
+        <td>Asynchronous event processing</td>
+      </tr>
+    </tbody></table>
+
+    <h3>3.2 Network Architecture (VPC Design)</h3>
+    <div style="text-align: center; margin: 20px 0;">
+      <img src="https://docs.aws.amazon.com/images/vpc/latest/userguide/images/vpc-example-private-subnets.png" alt="VPC Private Subnets Architecture" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; background: white;" data-height-listener-added="true">
+      <p style="font-size: 9pt; color: #666; margin-top: 8px;"><em>Figure 3.2: VPC Network Architecture with Private Subnets</em></p>
+    </div>
+
+    <p>
+      The VPC is segmented into multiple subnet tiers for security isolation:
+    </p>
+    <ul>
+      <li><strong>Public Subnets:</strong> NAT Gateway, Application Load Balancer (Internet-facing)</li>
+      <li><strong>Private App Subnets:</strong> ECS Fargate tasks (no direct internet access)</li>
+      <li><strong>Private DB Subnets:</strong> RDS, DocumentDB, ElastiCache (isolated from internet)</li>
+      <li><strong>VPC Endpoints:</strong> Private connectivity to S3 and other AWS services</li>
+    </ul>
+
+    <h3>3.3 Request Flow Architecture</h3>
+    <pre>User Request Flow:
+1. User (Mobile/Web) → Route53 DNS Resolution
+2. CloudFront CDN (Static Assets) / WAF (Security Filtering)
+3. ALB (SSL Termination + Path Routing)
+4. Target Group → ECS Service (Auto-scaled containers)
+5. Microservice → PostgreSQL/DocumentDB/Redis
+6. Response → Back through ALB → CloudFront → User
+    </pre>
+
+    <p>
+      Services are decoupled using an Event-Driven design (Amazon EventBridge/Kafka) to ensure that a failure in the
+      Notification Service does not impact core Admission workflows.
+    </p>
+
+    <!-- Multi-Tenant Isolation -->
+    <h2>4. Multi-Tenant Isolation Strategy</h2>
+    <p>
+      Multi-tenancy is the core architectural constraint. We employ a <strong>Hybrid Isolation Model</strong>:
+      Logic-level isolation for standard tiers and Instance-level isolation for enterprise clients.
+    </p>
+
+    <h3>4.1 Multi-Tenant Models Comparison</h3>
+    <table>
+      <tbody><tr>
+        <th>Model</th>
+        <th>Implementation</th>
+        <th>Isolation Level</th>
+        <th>Cost</th>
+        <th>Use Case</th>
+      </tr>
+      <tr>
+        <td><strong>Shared DB, Shared Schema</strong></td>
+        <td>tenant_id column filter</td>
+        <td>Application-level</td>
+        <td>💰 Low</td>
+        <td>Startups, SMB tier</td>
+      </tr>
+      <tr>
+        <td><strong>Shared DB, Separate Schema</strong></td>
+        <td>hospital_1.patients, hospital_2.patients</td>
+        <td>Database-level</td>
+        <td>💰💰 Medium</td>
+        <td>✅ Recommended for hospital chains</td>
+      </tr>
+      <tr>
+        <td><strong>Separate Database</strong></td>
+        <td>Dedicated RDS per tenant</td>
+        <td>Infrastructure-level</td>
+        <td>💰💰💰 High</td>
+        <td>Enterprise hospitals (HIPAA strict)</td>
+      </tr>
+    </tbody></table>
+
+    <h3>4.2 Row-Level Security (RLS) Implementation</h3>
+    <p>
+      PostgreSQL Row-Level Security (RLS) is used to enforce isolation at the database engine level, preventing
+      accidental data leakage even if application logic fails.
+    </p>
+
+    <h4>SQL Implementation Pattern:</h4>
+    <pre>-- 1. Enable RLS on the Table
+ALTER TABLE patients ENABLE ROW LEVEL SECURITY;
+
+-- 2. Create Policy for Tenant Isolation
+CREATE POLICY tenant_isolation_policy ON patients
+    USING (hospital_id = current_setting('app.current_hospital_id')::uuid);
+
+-- 3. Grant bypass to super admin
+ALTER TABLE patients FORCE ROW LEVEL SECURITY;
+CREATE POLICY admin_bypass ON patients
+    USING (current_setting('app.user_role') = 'SUPER_ADMIN');
+
+-- 4. Application Session Setup (Python/Node Middleware)
+-- Before executing any query, the connection is scoped:
+SET app.current_hospital_id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
+SET app.user_role = 'DOCTOR';
+SELECT * FROM patients; -- Only returns rows for this hospital
+    </pre>
+
+    <h3>4.3 Tenant Context Propagation</h3>
+    <p>
+      Every API request carries a JWT token containing the <code>tenant_id</code>. An API Gateway middleware extracts
+      this ID and injects it into the request context. This context is propagated through microservice calls via HTTP
+      headers (<code>X-Tenant-ID</code>).
+    </p>
+
+    <h4>Python FastAPI Middleware Example:</h4>
+    <pre>from fastapi import Request, HTTPException
+from sqlalchemy import text
+
+async def tenant_isolation_middleware(request: Request, call_next):
+    # Extract tenant from JWT
+    token = request.headers.get("Authorization")
+    tenant_id = decode_jwt(token).get("tenant_id")
+    
+    if not tenant_id:
+        raise HTTPException(status_code=403, detail="Missing tenant context")
+    
+    # Store in request state
+    request.state.tenant_id = tenant_id
+    
+    # Set PostgreSQL session variable
+    async with get_db_session() as session:
+        await session.execute(
+            text(f"SET app.current_hospital_id = '{tenant_id}'")
+        )
+    
+    response = await call_next(request)
+    return response
+    </pre>
+
+    <h4>Node.js Express Middleware Example:</h4>
+    <pre>const tenantIsolationMiddleware = async (req, res, next) =&gt; {
+  const token = req.headers.authorization?.split(' ')[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  
+  if (!decoded.tenant_id) {
+    return res.status(403).json({ error: 'Missing tenant context' });
+  }
+  
+  req.tenant_id = decoded.tenant_id;
+  
+  // Set session variable for PostgreSQL
+  await db.query(`SET app.current_hospital_id = $1`, [decoded.tenant_id]);
+  
+  next();
+};
+    </pre>
+
+    <h3>4.4 S3 Bucket Isolation Strategy</h3>
+    <p>Documents are organized with tenant prefixing:</p>
+    <pre>Bucket Structure:
+hms-documents-prod/
+  ├── hospital_abc123/
+  │   ├── lab_reports/
+  │   ├── prescriptions/
+  │   └── discharge_summaries/
+  ├── hospital_xyz789/
+      ├── lab_reports/
+      └── radiology_images/
+
+Access Policy (IAM):
+- Service role can only write to its own tenant prefix
+- Pre-signed URLs include tenant validation
+- S3 Object Lock enabled for audit trails
+    </pre>
+
+    <h3>4.5 Redis Key Isolation</h3>
+    <pre>Key Naming Convention:
+tenant:{hospital_id}:queue:doctor:{doctor_id}
+tenant:{hospital_id}:session:{user_id}
+tenant:{hospital_id}:cache:patient:{patient_id}
+
+Example:
+tenant:abc-123:queue:doctor:doc_456
+tenant:xyz-789:cache:patient:pat_999
+    </pre>
+
+    <!-- Frontend Architecture -->
+    <h2>5. Frontend Architecture</h2>
+    <p>
+      The client-side application is a <strong>Single Page Application (SPA)</strong> built with React and TypeScript.
+    </p>
+
+    <h3>5.1 Core Libraries</h3>
+    <ul>
+      <li>
+        <strong>State Management:</strong> Zustand (lightweight) or TanStack Query (server state synchronization).
+      </li>
+      <li>
+        <strong>UI Framework:</strong> Shadcn UI (Radix Primitives + Tailwind). This ensures full control over component
+        code compared to Material UI.
+      </li>
+      <li><strong>Forms:</strong> React Hook Form + Zod (schema validation).</li>
+      <li><strong>Routing:</strong> React Router v6 with lazy loading</li>
+      <li><strong>API Client:</strong> Axios with interceptors for auth token injection</li>
+      <li><strong>Real-time:</strong> Socket.io-client for WebSocket connections</li>
+    </ul>
+
+    <h3>5.2 Component Composition</h3>
+    <p>We utilize a "Atomic Design" directory structure.</p>
+    <pre>src/
+  components/
+    ui/           # Shadcn base components (Button, Input, Dialog)
+    domain/       # Business specific (PatientCard, VitalsChart, BillingTable)
+  features/
+    opd/          # OPD Module (Routes, API hooks, Components)
+      ├── api/
+      ├── components/
+      ├── hooks/
+      └── pages/
+    billing/      # Billing Module
+    ipd/          # IPD Module
+  lib/            # Utilities (axios instance, date formatting)
+  hooks/          # Global custom hooks
+  store/          # Zustand stores
+  types/          # TypeScript type definitions
+    </pre>
+
+    <h3>5.3 TypeScript Type Safety Example</h3>
+    <pre>// types/patient.ts
+export interface Patient {
+  id: string;
+  hospital_id: string;
+  uhid: string;
+  name: string;
+  age: number;
+  gender: 'MALE' | 'FEMALE' | 'OTHER';
+  mobile: string;
+  email?: string;
+  blood_group?: BloodGroup;
+  created_at: Date;
+}
+
+export type BloodGroup = 'A+' | 'A-' | 'B+' | 'B-' | 'O+' | 'O-' | 'AB+' | 'AB-';
+
+// features/opd/api/usePatientQuery.ts
+import { useQuery } from '@tanstack/react-query';
+import { Patient } from '@/types/patient';
+
+export const usePatient = (patientId: string) =&gt; {
+  return useQuery&lt;Patient&gt;({
+    queryKey: ['patient', patientId],
+    queryFn: async () =&gt; {
+      const { data } = await api.get&lt;Patient&gt;(`/api/v1/patients/${patientId}`);
+      return data;
+    }
+  });
+};
+    </pre>
+
+    <h3>5.4 Form Validation with Zod</h3>
+    <pre>import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const patientSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  mobile: z.string().regex(/^[0-9]{10}$/, 'Invalid mobile number'),
+  age: z.number().min(0).max(150),
+  gender: z.enum(['MALE', 'FEMALE', 'OTHER']),
+  email: z.string().email().optional()
+});
+
+type PatientFormData = z.infer&lt;typeof patientSchema&gt;;
+
+export const PatientForm = () =&gt; {
+  const form = useForm&lt;PatientFormData&gt;({
+    resolver: zodResolver(patientSchema)
+  });
+
+  const onSubmit = async (data: PatientFormData) =&gt; {
+    await createPatient(data);
+  };
+
+  return (
+    &lt;form onSubmit={form.handleSubmit(onSubmit)}&gt;
+      &lt;Input {...form.register('name')} /&gt;
+      {form.formState.errors.name &amp;&amp; &lt;span&gt;{form.formState.errors.name.message}&lt;/span&gt;}
+      {/* ... other fields */}
+    &lt;/form&gt;
+  );
+};
+    </pre>
+
+    <h3>5.5 Shadcn UI Integration</h3>
+    <p>Shadcn provides copy-paste components instead of npm packages, giving full customization control:</p>
+    <pre>// components/ui/button.tsx (Generated by Shadcn CLI)
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border border-input hover:bg-accent hover:text-accent-foreground",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt;,
+    VariantProps&lt;typeof buttonVariants&gt; {
+  asChild?: boolean
+}
+
+const Button = React.forwardRef&lt;HTMLButtonElement, ButtonProps&gt;(
+  ({ className, variant, size, asChild = false, ...props }, ref) =&gt; {
+    const Comp = asChild ? Slot : "button"
+    return (
+      &lt;Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      /&gt;
+    )
+  }
+)
+    </pre>
+
+    <h3>5.6 Real-Time WebSocket Integration</h3>
+    <pre>// hooks/useOPDQueue.ts
+import { useEffect, useState } from 'react';
+import { io, Socket } from 'socket.io-client';
+
+interface QueueUpdate {
+  patient_id: string;
+  status: 'WAITING' | 'IN_CONSULTATION' | 'COMPLETED';
+  position: number;
+}
+
+export const useOPDQueue = (doctorId: string) =&gt; {
+  const [socket, setSocket] = useState&lt;Socket | null&gt;(null);
+  const [queueData, setQueueData] = useState&lt;QueueUpdate[]&gt;([]);
+
+  useEffect(() =&gt; {
+    const socketInstance = io(process.env.REACT_APP_WS_URL, {
+      auth: { token: localStorage.getItem('access_token') }
+    });
+
+    socketInstance.emit('join_doctor_queue', { doctor_id: doctorId });
+
+    socketInstance.on('queue_update', (data: QueueUpdate[]) =&gt; {
+      setQueueData(data);
+    });
+
+    setSocket(socketInstance);
+
+    return () =&gt; {
+      socketInstance.disconnect();
+    };
+  }, [doctorId]);
+
+  return { queueData, socket };
+};
+    </pre>
+
+    <!-- Backend Architecture -->
+    <h2>6. Backend Architecture (Polyglot Microservices)</h2>
+    <p>We strategically assign technologies based on workload characteristics.</p>
+
+    <div style="text-align: center; margin: 20px 0;">
+      <img src="https://miro.medium.com/max/1400/1*jcmnWZ5X17ABsRgJXCaiUA.png" alt="Microservices Communication Pattern" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; background: white;" data-height-listener-added="true">
+      <p style="font-size: 9pt; color: #666; margin-top: 8px;"><em>Figure 6.1: Microservices Communication Architecture</em></p>
+    </div>
+
+    <h3>6.1 Microservices Technology Mapping</h3>
+    <table>
+      <tbody><tr>
+        <th>Microservice</th>
+        <th>Technology</th>
+        <th>Primary Database</th>
+        <th>Key Responsibilities</th>
+      </tr>
+      <tr>
+        <td><strong>Auth Service</strong></td>
+        <td>Node.js (NestJS)</td>
+        <td>PostgreSQL + Redis</td>
+        <td>OAuth, JWT generation, MFA, session management</td>
+      </tr>
+      <tr>
+        <td><strong>Patient Service</strong></td>
+        <td>Node.js (Express)</td>
+        <td>PostgreSQL</td>
+        <td>Patient registration, demographics, UHID generation</td>
+      </tr>
+      <tr>
+        <td><strong>OPD Service</strong></td>
+        <td>Node.js (NestJS)</td>
+        <td>PostgreSQL + Redis</td>
+        <td>Appointments, queue management, consultations</td>
+      </tr>
+      <tr>
+        <td><strong>IPD Service</strong></td>
+        <td>Node.js (Express)</td>
+        <td>PostgreSQL</td>
+        <td>Admissions, bed management, discharge</td>
+      </tr>
+      <tr>
+        <td><strong>Clinical Service</strong></td>
+        <td>Python (FastAPI)</td>
+        <td>DocumentDB</td>
+        <td>Clinical notes, prescriptions, EMR forms</td>
+      </tr>
+      <tr>
+        <td><strong>Lab Service</strong></td>
+        <td>Node.js (Express)</td>
+        <td>PostgreSQL</td>
+        <td>Test orders, sample tracking, result entry</td>
+      </tr>
+      <tr>
+        <td><strong>Pharmacy Service</strong></td>
+        <td>Node.js (Express)</td>
+        <td>PostgreSQL</td>
+        <td>Medicine dispensing, inventory management</td>
+      </tr>
+      <tr>
+        <td><strong>Billing Service</strong></td>
+        <td>Node.js (NestJS)</td>
+        <td>PostgreSQL</td>
+        <td>Invoice generation, payment processing</td>
+      </tr>
+      <tr>
+        <td><strong>Insurance Service</strong></td>
+        <td>Node.js (Express)</td>
+        <td>PostgreSQL</td>
+        <td>TPA integration, pre-auth, claims</td>
+      </tr>
+      <tr>
+        <td><strong>Notification Service</strong></td>
+        <td>Node.js (Express)</td>
+        <td>PostgreSQL + Redis</td>
+        <td>Email, SMS, WhatsApp, push notifications</td>
+      </tr>
+      <tr>
+        <td><strong>AI/Analytics Service</strong></td>
+        <td>Python (FastAPI)</td>
+        <td>PostgreSQL + Vector DB</td>
+        <td>Clinical decision support, predictive analytics, RAG</td>
+      </tr>
+      <tr>
+        <td><strong>Document Service</strong></td>
+        <td>Node.js (Express)</td>
+        <td>PostgreSQL + S3</td>
+        <td>File upload, pre-signed URLs, metadata management</td>
+      </tr>
+      <tr>
+        <td><strong>Reporting Service</strong></td>
+        <td>Python (FastAPI)</td>
+        <td>PostgreSQL Read Replica</td>
+        <td>Dashboard APIs, analytics, data export</td>
+      </tr>
+    </tbody></table>
+
+    <h3>6.2 Service A: AI &amp; Analytics Service (Python FastAPI)</h3>
+    <p>Python is selected for its rich ecosystem in Data Science.</p>
+    <ul>
+      <li><strong>Responsibility:</strong> Clinical Decision Support, OCR of scanned reports, Predictive Analytics.</li>
+      <li><strong>Key Libraries:</strong> Pandas, NumPy, PyTorch/TensorFlow, Pydantic, LangChain, pgvector.</li>
+      <li><strong>Concurrency:</strong> Uvicorn (ASGI server) for handling async requests.</li>
+    </ul>
+
+    <h4>FastAPI Endpoint Example (Type-Safe):</h4>
+    <pre>from fastapi import APIRouter, Depends, Header, HTTPException
+from pydantic import UUID4, BaseModel
+from typing import List
+import numpy as np
+
+router = APIRouter()
+
+class RiskScoreResponse(BaseModel):
+    patient_id: UUID4
+    risk_score: float
+    risk_factors: List[str]
+    confidence: float
+
+async def get_tenant_context(x_tenant_id: str = Header(...)) -&gt; str:
+    """Dependency injection for tenant isolation"""
+    if not x_tenant_id:
+        raise HTTPException(status_code=403, detail="Missing tenant context")
+    return x_tenant_id
+
+@router.get("/patients/{patient_id}/risk-score", response_model=RiskScoreResponse)
+async def get_patient_risk(
+    patient_id: UUID4, 
+    tenant_id: str = Depends(get_tenant_context)
+):
+    """
+    Calculate patient risk score using ML model
+    Tenant context is automatically enforced via Dependency Injection
+    """
+    # Set tenant context in DB session
+    await db.execute(f"SET app.current_hospital_id = '{tenant_id}'")
+    
+    # Fetch patient data (automatically filtered by RLS)
+    patient_data = await fetch_patient_clinical_history(patient_id)
+    
+    # Run ML inference
+    risk_score, risk_factors = await ml_model.predict(patient_data)
+    
+    return RiskScoreResponse(
+        patient_id=patient_id,
+        risk_score=float(risk_score),
+        risk_factors=risk_factors,
+        confidence=0.87
+    )
+
+@router.post("/clinical-notes/summarize")
+async def summarize_clinical_note(
+    note_text: str,
+    tenant_id: str = Depends(get_tenant_context)
+):
+    """
+    Use LLM to summarize lengthy clinical notes
+    """
+    from langchain.llms import OpenAI
+    from langchain.chains.summarize import load_summarize_chain
+    
+    llm = OpenAI(temperature=0.3)
+    summary = await llm.apredict(
+        f"Summarize the following clinical note in 3 sentences:\n\n{note_text}"
+    )
+    
+    return {"summary": summary}
+    </pre>
+
+    <h4>Vector Search for Similar Patients (RAG):</h4>
+    <pre># Install pgvector extension in PostgreSQL
+CREATE EXTENSION vector;
+
+-- Create table with vector column
+CREATE TABLE clinical_embeddings (
+    id UUID PRIMARY KEY,
+    hospital_id UUID NOT NULL,
+    patient_id UUID NOT NULL,
+    embedding vector(1536),  -- OpenAI embedding dimension
+    clinical_summary TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Create index for fast similarity search
+CREATE INDEX ON clinical_embeddings USING ivfflat (embedding vector_cosine_ops);
+
+# Python code for vector search
+@router.get("/patients/{patient_id}/similar-cases")
+async def find_similar_patients(
+    patient_id: UUID4,
+    tenant_id: str = Depends(get_tenant_context),
+    limit: int = 5
+):
+    # Get patient's clinical summary
+    summary = await get_patient_summary(patient_id)
+    
+    # Generate embedding
+    from openai import OpenAI
+    client = OpenAI()
+    embedding_response = client.embeddings.create(
+        model="text-embedding-3-small",
+        input=summary
+    )
+    query_embedding = embedding_response.data[0].embedding
+    
+    # Vector similarity search with tenant isolation
+    query = """
+        SELECT patient_id, clinical_summary, 
+               1 - (embedding &lt;=&gt; $1::vector) as similarity
+        FROM clinical_embeddings
+        WHERE hospital_id = $2
+        ORDER BY embedding &lt;=&gt; $1::vector
+        LIMIT $3
+    """
+    
+    results = await db.fetch_all(
+        query, 
+        [query_embedding, tenant_id, limit]
+    )
+    
+    return {"similar_cases": results}
+    </pre>
+
+    <h3>6.3 Service B: Real-Time OPD &amp; Notifications (Node.js)</h3>
+    <p>
+      Node.js is selected for its non-blocking I/O model, ideal for high-concurrency websocket connections used in
+      doctor dashboards.
+    </p>
+    <ul>
+      <li><strong>Responsibility:</strong> Socket.io server for queue updates, Notification dispatch (Email/SMS).</li>
+      <li><strong>Framework:</strong> NestJS (Structured) or Express.</li>
+    </ul>
+
+    <h4>NestJS OPD Service Example:</h4>
+    <pre>// opd.controller.ts
+import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { TenantContext } from '../common/decorators/tenant.decorator';
+
+@Controller('opd')
+@UseGuards(JwtAuthGuard)
+export class OpdController {
+  constructor(private readonly opdService: OpdService) {}
+
+  @Post('appointments')
+  async bookAppointment(
+    @Body() dto: BookAppointmentDto,
+    @TenantContext() tenantId: string
+  ) {
+    // Tenant context injected via custom decorator
+    return this.opdService.bookAppointment(dto, tenantId);
+  }
+
+  @Get('queue/:doctorId')
+  async getDoctorQueue(
+    @Param('doctorId') doctorId: string,
+    @TenantContext() tenantId: string
+  ) {
+    return this.opdService.getQueueStatus(doctorId, tenantId);
+  }
+}
+
+// opd.service.ts
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { OpdQueueGateway } from './opd-queue.gateway';
+
+@Injectable()
+export class OpdService {
+  constructor(
+    @InjectRepository(Appointment)
+    private appointmentRepo: Repository&lt;Appointment&gt;,
+    private queueGateway: OpdQueueGateway,
+    private eventBus: EventBusService
+  ) {}
+
+  async bookAppointment(dto: BookAppointmentDto, tenantId: string) {
+    // Create appointment
+    const appointment = this.appointmentRepo.create({
+      ...dto,
+      hospital_id: tenantId,
+      status: 'SCHEDULED'
+    });
+    
+    await this.appointmentRepo.save(appointment);
+    
+    // Emit event for notification service
+    await this.eventBus.publish('appointment.booked', {
+      tenant_id: tenantId,
+      appointment_id: appointment.id,
+      patient_id: dto.patient_id,
+      doctor_id: dto.doctor_id,
+      appointment_time: dto.appointment_time
+    });
+    
+    // Update real-time queue via WebSocket
+    this.queueGateway.notifyQueueUpdate(dto.doctor_id, tenantId);
+    
+    return appointment;
+  }
+}
+
+// opd-queue.gateway.ts (WebSocket)
+import { WebSocketGateway, WebSocketServer, SubscribeMessage } from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
+
+@WebSocketGateway({ namespace: '/opd-queue' })
+export class OpdQueueGateway {
+  @WebSocketServer()
+  server: Server;
+
+  @SubscribeMessage('join_doctor_queue')
+  handleJoinQueue(client: Socket, payload: { doctor_id: string }) {
+    const tenantId = client.handshake.auth.tenant_id;
+    const room = `queue:${tenantId}:${payload.doctor_id}`;
+    
+    client.join(room);
+    
+    // Send current queue status
+    this.sendQueueStatus(payload.doctor_id, tenantId);
+  }
+
+  async notifyQueueUpdate(doctorId: string, tenantId: string) {
+    const room = `queue:${tenantId}:${doctorId}`;
+    const queueData = await this.getQueueData(doctorId, tenantId);
+    
+    this.server.to(room).emit('queue_update', queueData);
+  }
+}
+    </pre>
+
+    <h3>6.4 Inter-Service Communication</h3>
+    <p>Services communicate via:</p>
+    <ul>
+      <li><strong>Synchronous:</strong> REST APIs (for immediate responses)</li>
+      <li><strong>Asynchronous:</strong> Kafka/EventBridge (for event-driven workflows)</li>
+    </ul>
+
+    <h4>Event-Driven Pattern Example:</h4>
+    <pre>Event Flow:
+1. OPD Service → Publishes "appointment.booked" event to Kafka
+2. Notification Service → Consumes event → Sends SMS/Email
+3. Billing Service → Consumes event → Creates consultation invoice
+4. Analytics Service → Consumes event → Updates dashboard metrics
+
+Kafka Topic Structure:
+- hospital.opd.appointments
+- hospital.lab.reports
+- hospital.billing.invoices
+- hospital.notifications.outbox
+
+Each service subscribes only to relevant topics.
+    </pre>
+
+    <!-- Database Architecture -->
+    <h2>7. Database Architecture</h2>
+
+    <h3>7.1 Relational Data (PostgreSQL)</h3>
+    <p>Used for structured, relational data requiring ACID transactions.</p>
+    <ul>
+      <li><strong>Tables:</strong> Users, Roles, Billing_Ledger, Inventory_Stock.</li>
+      <li>
+        <strong>Partitioning:</strong> Tables are partitioned by <code>created_at</code> date for historical archiving.
+      </li>
+    </ul>
+
+    <h4>Core Database Schema:</h4>
+    <pre>-- Patients Table (with RLS)
+CREATE TABLE patients (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    hospital_id UUID NOT NULL,
+    uhid VARCHAR(20) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    age INTEGER NOT NULL CHECK (age &gt;= 0 AND age &lt;= 150),
+    gender VARCHAR(10) CHECK (gender IN ('MALE', 'FEMALE', 'OTHER')),
+    mobile VARCHAR(15) NOT NULL,
+    email VARCHAR(255),
+    blood_group VARCHAR(5),
+    address JSONB,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW(),
+    CONSTRAINT fk_hospital FOREIGN KEY (hospital_id) REFERENCES hospitals(id)
+);
+
+-- Enable Row Level Security
+ALTER TABLE patients ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation ON patients
+    USING (hospital_id = current_setting('app.current_hospital_id')::uuid);
+
+-- Indexes for performance
+CREATE INDEX idx_patients_hospital ON patients(hospital_id);
+CREATE INDEX idx_patients_uhid ON patients(uhid);
+CREATE INDEX idx_patients_mobile ON patients(mobile);
+
+-- Appointments Table
+CREATE TABLE appointments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    hospital_id UUID NOT NULL,
+    patient_id UUID NOT NULL REFERENCES patients(id),
+    doctor_id UUID NOT NULL REFERENCES users(id),
+    appointment_date DATE NOT NULL,
+    appointment_time TIME NOT NULL,
+    status VARCHAR(20) CHECK (status IN ('SCHEDULED', 'CHECKED_IN', 'IN_CONSULTATION', 'COMPLETED', 'CANCELLED')),
+    consultation_type VARCHAR(20) CHECK (consultation_type IN ('NEW', 'FOLLOW_UP')),
+    queue_number INTEGER,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+ALTER TABLE appointments ENABLE ROW LEVEL SECURITY;
+CREATE POLICY tenant_isolation ON appointments
+    USING (hospital_id = current_setting('app.current_hospital_id')::uuid);
+
+-- Billing Table
+CREATE TABLE invoices (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    hospital_id UUID NOT NULL,
+    invoice_number VARCHAR(50) UNIQUE NOT NULL,
+    patient_id UUID NOT NULL REFERENCES patients(id),
+    visit_id UUID REFERENCES visits(id),
+    total_amount DECIMAL(10,2) NOT NULL,
+    discount DECIMAL(10,2) DEFAULT 0,
+    tax_amount DECIMAL(10,2) DEFAULT 0,
+    net_amount DECIMAL(10,2) NOT NULL,
+    payment_status VARCHAR(20) CHECK (payment_status IN ('PENDING', 'PARTIAL', 'PAID', 'REFUNDED')),
+    created_at TIMESTAMP DEFAULT NOW(),
+    created_by UUID REFERENCES users(id)
+);
+
+ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;
+CREATE POLICY tenant_isolation ON invoices
+    USING (hospital_id = current_setting('app.current_hospital_id')::uuid);
+
+-- Invoice Line Items
+CREATE TABLE invoice_items (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    invoice_id UUID NOT NULL REFERENCES invoices(id) ON DELETE CASCADE,
+    item_type VARCHAR(20) CHECK (item_type IN ('CONSULTATION', 'INVESTIGATION', 'MEDICINE', 'PROCEDURE')),
+    item_id UUID NOT NULL,
+    item_name VARCHAR(255) NOT NULL,
+    quantity INTEGER NOT NULL DEFAULT 1,
+    unit_price DECIMAL(10,2) NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL
+);
+    </pre>
+
+    <h3>7.2 Document Data (Amazon DocumentDB)</h3>
+    <p>
+      Used for semi-structured clinical data that varies by specialty (e.g., Ophthalmology forms vs. Cardiology forms).
+    </p>
+
+    <h4>Schema Design (JSON Document):</h4>
+    <pre>// Clinical Notes Document
+{
+  "_id": "enc_5599",
+  "tenant_id": "hosp_001",
+  "patient_id": "pat_882",
+  "visit_id": "visit_1234",
+  "doctor_id": "doc_456",
+  "type": "OPHTHALMOLOGY_VISIT",
+  "timestamp": "2023-10-27T10:00:00Z",
+  
+  "chief_complaint": "Blurred vision in right eye",
+  
+  "clinical_data": {
+    "left_eye": { 
+      "vision": "6/6", 
+      "pressure": "18mmHg",
+      "refraction": { "sphere": -0.5, "cylinder": -0.25, "axis": 180 }
+    },
+    "right_eye": { 
+      "vision": "6/9", 
+      "pressure": "19mmHg",
+      "refraction": { "sphere": -1.0, "cylinder": -0.5, "axis": 175 }
+    },
+    "notes": "Patient complains of mild blurring in right eye since 2 weeks.",
+    "diagnosis": ["Myopia", "Astigmatism"]
+  },
+  
+  "prescriptions": [
+    {
+      "medicine_name": "Refresh Tears Eye Drops",
+      "dosage": "2 drops",
+      "frequency": "TDS",
+      "duration": "7 days"
+    }
+  ],
+  
+  "investigations_ordered": [
+    {
+      "test_name": "Fundus Photography",
+      "status": "PENDING"
+    }
+  ],
+  
+  "follow_up": {
+    "required": true,
+    "after_days": 30,
+    "notes": "Review after glasses prescription"
+  },
+  
+  "metadata": {
+    "created_at": "2023-10-27T10:00:00Z",
+    "updated_at": "2023-10-27T10:25:00Z",
+    "signed_at": "2023-10-27T10:30:00Z",
+    "version": 1
+  }
+}
+
+// Lab Report Document
+{
+  "_id": "lab_report_8899",
+  "tenant_id": "hosp_001",
+  "patient_id": "pat_882",
+  "order_id": "order_5566",
+  "test_name": "Complete Blood Count",
+  "test_code": "CBC",
+  "status": "COMPLETED",
+  
+  "results": {
+    "hemoglobin": { "value": 14.5, "unit": "g/dL", "normal_range": "13-17", "flag": "NORMAL" },
+    "wbc": { "value": 8500, "unit": "/cumm", "normal_range": "4000-11000", "flag": "NORMAL" },
+    "platelets": { "value": 250000, "unit": "/cumm", "normal_range": "150000-450000", "flag": "NORMAL" },
+    "rbc": { "value": 5.2, "unit": "million/cumm", "normal_range": "4.5-5.5", "flag": "NORMAL" }
+  },
+  
+  "interpretation": "All values within normal limits",
+  "performed_by": "lab_tech_123",
+  "verified_by": "pathologist_456",
+  "sample_collected_at": "2023-10-27T08:00:00Z",
+  "result_entered_at": "2023-10-27T14:00:00Z",
+  "verified_at": "2023-10-27T14:30:00Z"
+}
+    </pre>
+
+    <h4>DocumentDB Queries (Node.js Example):</h4>
+    <pre>const { MongoClient } = require('mongodb');
+
+// Connect to DocumentDB
+const client = new MongoClient(process.env.DOCUMENTDB_URI);
+await client.connect();
+const db = client.db('hospital_clinical');
+
+// Query with tenant isolation
+const getClinicalNotes = async (patientId, tenantId) =&gt; {
+  const notes = await db.collection('clinical_notes')
+    .find({ 
+      patient_id: patientId,
+      tenant_id: tenantId  // Always filter by tenant
+    })
+    .sort({ timestamp: -1 })
+    .limit(10)
+    .toArray();
+  
+  return notes;
+};
+
+// Full-text search in clinical notes
+const searchClinicalNotes = async (searchTerm, tenantId) =&gt; {
+  const results = await db.collection('clinical_notes')
+    .find({
+      tenant_id: tenantId,
+      $text: { $search: searchTerm }
+    })
+    .project({ score: { $meta: "textScore" } })
+    .sort({ score: { $meta: "textScore" } })
+    .toArray();
+  
+  return results;
+};
+
+// Create text index for search
+await db.collection('clinical_notes').createIndex({
+  "chief_complaint": "text",
+  "clinical_data.notes": "text",
+  "clinical_data.diagnosis": "text"
+});
+    </pre>
+
+    <h3>7.3 Caching Strategy (Redis)</h3>
+    <p>Redis is used for high-speed data access and real-time operations:</p>
+    <ul>
+      <li><strong>Session Management:</strong> JWT token blacklisting</li>
+      <li><strong>OTP Storage:</strong> 5-minute TTL for authentication</li>
+      <li><strong>Queue Management:</strong> Doctor queue state</li>
+      <li><strong>Rate Limiting:</strong> API request throttling</li>
+      <li><strong>Cache:</strong> Frequently accessed master data</li>
+    </ul>
+
+    <h4>Redis Usage Examples:</h4>
+    <pre>// OTP Storage (Node.js with ioredis)
+const Redis = require('ioredis');
+const redis = new Redis(process.env.REDIS_URL);
+
+// Store OTP with 5-minute expiry
+async function storeOTP(mobile, otp, tenantId) {
+  const key = `tenant:${tenantId}:otp:${mobile}`;
+  await redis.setex(key, 300, otp); // 300 seconds = 5 minutes
+}
+
+// Verify OTP
+async function verifyOTP(mobile, otp, tenantId) {
+  const key = `tenant:${tenantId}:otp:${mobile}`;
+  const storedOTP = await redis.get(key);
+  
+  if (storedOTP === otp) {
+    await redis.del(key); // Delete after verification
+    return true;
+  }
+  return false;
+}
+
+// Doctor Queue Management (Redis Sorted Set)
+async function addToQueue(doctorId, patientId, tenantId, timestamp) {
+  const key = `tenant:${tenantId}:queue:${doctorId}`;
+  await redis.zadd(key, timestamp, patientId);
+}
+
+async function getQueue(doctorId, tenantId) {
+  const key = `tenant:${tenantId}:queue:${doctorId}`;
+  const queue = await redis.zrange(key, 0, -1, 'WITHSCORES');
+  return queue;
+}
+
+// Cache Patient Data
+async function cachePatient(patientId, data, tenantId) {
+  const key = `tenant:${tenantId}:patient:${patientId}`;
+  await redis.setex(key, 3600, JSON.stringify(data)); // 1 hour cache
+}
+
+// Rate Limiting
+async function checkRateLimit(userId, tenantId) {
+  const key = `tenant:${tenantId}:ratelimit:${userId}`;
+  const count = await redis.incr(key);
+  
+  if (count === 1) {
+    await redis.expire(key, 60); // 60 seconds window
+  }
+  
+  return count &lt;= 100; // Max 100 requests per minute
+}
+    </pre>
+
+    <h3>7.4 Database Partitioning Strategy</h3>
+    <pre>-- Partition appointments by date for better query performance
+CREATE TABLE appointments_2023_q1 PARTITION OF appointments
+    FOR VALUES FROM ('2023-01-01') TO ('2023-04-01');
+
+CREATE TABLE appointments_2023_q2 PARTITION OF appointments
+    FOR VALUES FROM ('2023-04-01') TO ('2023-07-01');
+
+-- Partition invoices by creation date
+CREATE TABLE invoices_2023_q1 PARTITION OF invoices
+    FOR VALUES FROM ('2023-01-01') TO ('2023-04-01');
+
+-- Benefits:
+-- 1. Faster queries (scan only relevant partitions)
+-- 2. Easy archiving (detach old partitions)
+-- 3. Better maintenance (vacuum/analyze per partition)
+    </pre>
+
+    <!-- Authentication -->
+    <h2>8. Authentication &amp; Security</h2>
+    <p>We implement <strong>OAuth 2.0 with OpenID Connect (OIDC)</strong>.</p>
+
+    <h3>8.1 Authentication Architecture</h3>
+    <table>
+      <tbody><tr>
+        <th>Component</th>
+        <th>Technology</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><strong>Identity Provider</strong></td>
+        <td>AWS Cognito / Keycloak</td>
+        <td>User pool management, OAuth server</td>
+      </tr>
+      <tr>
+        <td><strong>Token Type</strong></td>
+        <td>JWT (JSON Web Token)</td>
+        <td>Stateless authentication</td>
+      </tr>
+      <tr>
+        <td><strong>MFA</strong></td>
+        <td>SMS OTP / TOTP (Google Authenticator)</td>
+        <td>Two-factor authentication</td>
+      </tr>
+      <tr>
+        <td><strong>Session Store</strong></td>
+        <td>Redis</td>
+        <td>Token blacklisting, refresh tokens</td>
+      </tr>
+    </tbody></table>
+
+    <h3>8.2 OAuth 2.0 Flow</h3>
+    <pre>Authentication Flow:
+1. User → POST /auth/login { email, password }
+2. Auth Service → Validate credentials (PostgreSQL)
+3. Auth Service → Generate OTP → Send via SMS
+4. User → POST /auth/verify-otp { mobile, otp }
+5. Auth Service → Verify OTP (Redis)
+6. Auth Service → Generate JWT tokens (access + refresh)
+7. Response → { access_token, refresh_token, expires_in }
+
+Token Refresh Flow:
+1. User → POST /auth/refresh { refresh_token }
+2. Auth Service → Validate refresh token (Redis)
+3. Auth Service → Generate new access token
+4. Response → { access_token, expires_in }
+    </pre>
+
+    <h3>8.3 Token Strategy</h3>
+    <ul>
+      <li><strong>Access Token (JWT):</strong> Short-lived (15 mins). Contains claims for authorization.</li>
+      <li><strong>Refresh Token:</strong> Long-lived (7 days). Stored securely in HttpOnly cookies.</li>
+      <li><strong>Storage:</strong> Access token in memory, Refresh token in HttpOnly cookie</li>
+    </ul>
+
+    <h3>8.4 JWT Payload Structure</h3>
+    <pre>{
+  "sub": "user_123456",
+  "iss": "https://auth.hospitalplatform.com",
+  "iat": 1698300000,
+  "exp": 1698300900,
+  "tenant_id": "hosp_chain_alpha",
+  "hospital_id": "hospital_branch_001",
+  "user_type": "DOCTOR",
+  "roles": ["DOCTOR", "CONSULTANT"],
+  "permissions": [
+    "view_patient",
+    "write_prescription",
+    "order_lab_test",
+    "view_lab_report"
+  ],
+  "metadata": {
+    "doctor_id": "doc_456",
+    "department": "CARDIOLOGY",
+    "branch": "Main Hospital"
+  }
+}
+    </pre>
+
+    <h3>8.5 JWT Implementation (Node.js)</h3>
+    <pre>// auth.service.ts
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+
+@Injectable()
+export class AuthService {
+  async login(email: string, password: string) {
+    // 1. Fetch user with tenant info
+    const user = await this.usersRepo.findOne({ 
+      where: { email },
+      relations: ['hospital', 'roles']
+    });
+    
+    if (!user || !(await bcrypt.compare(password, user.password_hash))) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+    
+    // 2. Generate OTP
+    const otp = this.generateOTP();
+    await this.redis.setex(
+      `otp:${user.id}`,
+      300,
+      otp
+    );
+    
+    // 3. Send OTP via SMS
+    await this.notificationService.sendSMS(user.mobile, 
+      `Your OTP is: ${otp}. Valid for 5 minutes.`
+    );
+    
+    return { 
+      message: 'OTP sent to registered mobile',
+      session_id: user.id
+    };
+  }
+  
+  async verifyOTP(sessionId: string, otp: string) {
+    // 1. Verify OTP
+    const storedOTP = await this.redis.get(`otp:${sessionId}`);
+    if (storedOTP !== otp) {
+      throw new UnauthorizedException('Invalid OTP');
+    }
+    
+    // 2. Delete OTP
+    await this.redis.del(`otp:${sessionId}`);
+    
+    // 3. Get user details
+    const user = await this.usersRepo.findOne({ 
+      where: { id: sessionId },
+      relations: ['hospital', 'roles']
+    });
+    
+    // 4. Generate tokens
+    const payload = {
+      sub: user.id,
+      tenant_id: user.hospital.tenant_id,
+      hospital_id: user.hospital.id,
+      user_type: user.user_type,
+      roles: user.roles.map(r =&gt; r.name),
+      permissions: this.extractPermissions(user.roles)
+    };
+    
+    const access_token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: '15m'
+    });
+    
+    const refresh_token = jwt.sign(
+      { sub: user.id }, 
+      process.env.JWT_REFRESH_SECRET, 
+      { expiresIn: '7d' }
+    );
+    
+    // 5. Store refresh token in Redis
+    await this.redis.setex(
+      `refresh:${user.id}`,
+      604800, // 7 days
+      refresh_token
+    );
+    
+    return {
+      access_token,
+      refresh_token,
+      expires_in: 900,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        hospital: user.hospital.name
+      }
+    };
+  }
+  
+  async logout(userId: string, token: string) {
+    // Blacklist the token
+    await this.redis.setex(
+      `blacklist:${token}`,
+      900, // Same as token expiry
+      'true'
+    );
+    
+    // Delete refresh token
+    await this.redis.del(`refresh:${userId}`);
+  }
+  
+  private generateOTP(): string {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
+}
+
+// JWT Guard Middleware
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+
+@Injectable()
+export class JwtAuthGuard implements CanActivate {
+  constructor(
+    private jwtService: JwtService,
+    private redis: RedisService
+  ) {}
+  
+  async canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
+    const request = context.switchToHttp().getRequest();
+    const token = this.extractToken(request);
+    
+    if (!token) {
+      throw new UnauthorizedException('Missing token');
+    }
+    
+    // Check if token is blacklisted
+    const isBlacklisted = await this.redis.get(`blacklist:${token}`);
+    if (isBlacklisted) {
+      throw new UnauthorizedException('Token has been revoked');
+    }
+    
+    try {
+      const payload = this.jwtService.verify(token);
+      request.user = payload;
+      request.tenant_id = payload.tenant_id;
+      return true;
+    } catch (error) {
+      throw new UnauthorizedException('Invalid token');
+    }
+  }
+  
+  private extractToken(request): string | null {
+    const authHeader = request.headers.authorization;
+    if (authHeader &amp;&amp; authHeader.startsWith('Bearer ')) {
+      return authHeader.substring(7);
+    }
+    return null;
+  }
+}
+    </pre>
+
+    <h3>8.6 Role-Based Access Control (RBAC)</h3>
+    <pre>-- Roles Table
+CREATE TABLE roles (
+    id UUID PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    description TEXT,
+    permissions JSONB
+);
+
+-- User Roles (Many-to-Many)
+CREATE TABLE user_roles (
+    user_id UUID REFERENCES users(id),
+    role_id UUID REFERENCES roles(id),
+    PRIMARY KEY (user_id, role_id)
+);
+
+-- Sample Roles
+INSERT INTO roles (id, name, permissions) VALUES
+(gen_random_uuid(), 'SUPER_ADMIN', '["*"]'),
+(gen_random_uuid(), 'DOCTOR', '["view_patient", "write_prescription", "order_test"]'),
+(gen_random_uuid(), 'NURSE', '["view_patient", "record_vitals"]'),
+(gen_random_uuid(), 'RECEPTIONIST', '["register_patient", "book_appointment"]'),
+(gen_random_uuid(), 'PHARMACIST', '["view_prescription", "dispense_medicine"]'),
+(gen_random_uuid(), 'LAB_TECHNICIAN', '["view_test_order", "enter_result"]');
+
+// Permission Check Decorator (NestJS)
+import { SetMetadata } from '@nestjs/common';
+
+export const RequirePermission = (...permissions: string[]) =&gt; 
+  SetMetadata('permissions', permissions);
+
+// Usage in controller
+@Get('patients/:id')
+@RequirePermission('view_patient')
+async getPatient(@Param('id') id: string) {
+  // Only users with 'view_patient' permission can access
+  return this.patientService.findOne(id);
+}
+
+// Permission Guard
+@Injectable()
+export class PermissionGuard implements CanActivate {
+  constructor(private reflector: Reflector) {}
+  
+  canActivate(context: ExecutionContext): boolean {
+    const requiredPermissions = this.reflector.get&lt;string[]&gt;(
+      'permissions',
+      context.getHandler()
+    );
+    
+    if (!requiredPermissions) {
+      return true;
+    }
+    
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    
+    return requiredPermissions.every(permission =&gt; 
+      user.permissions.includes(permission) || user.permissions.includes('*')
+    );
+  }
+}
+    </pre>
+
+    <h3>8.7 Security Best Practices</h3>
+    <ul>
+      <li><strong>Password Hashing:</strong> bcrypt with salt rounds = 12</li>
+      <li><strong>Rate Limiting:</strong> Max 5 login attempts per 15 minutes</li>
+      <li><strong>Token Rotation:</strong> Refresh tokens rotated on each use</li>
+      <li><strong>HTTPS Only:</strong> All API traffic over TLS 1.3</li>
+      <li><strong>CORS:</strong> Whitelist allowed origins only</li>
+      <li><strong>SQL Injection Prevention:</strong> Parameterized queries</li>
+      <li><strong>XSS Prevention:</strong> Input sanitization, CSP headers</li>
+      <li><strong>Audit Logging:</strong> All authentication events logged</li>
+    </ul>
+
+    <!-- API Gateway -->
+    <h2>9. API Gateway &amp; Routing</h2>
+    <p>The API Gateway acts as the single entry point, routing requests based on URL paths.</p>
+    <table>
+      <tbody><tr>
+        <th>Path Prefix</th>
+        <th>Target Service</th>
+        <th>Protocol</th>
+        <th>Port</th>
+      </tr>
+      <tr>
+        <td>/api/v1/auth/*</td>
+        <td>Auth Service (Node.js)</td>
+        <td>HTTP/REST</td>
+        <td>3001</td>
+      </tr>
+      <tr>
+        <td>/api/v1/patients/*</td>
+        <td>Patient Service (Node.js)</td>
+        <td>HTTP/REST</td>
+        <td>3002</td>
+      </tr>
+      <tr>
+        <td>/api/v1/clinical/*</td>
+        <td>Clinical Service (FastAPI)</td>
+        <td>HTTP/REST</td>
+        <td>8000</td>
+      </tr>
+      <tr>
+        <td>/api/v1/opd/*</td>
+        <td>OPD Service (Node.js)</td>
+        <td>HTTP/REST</td>
+        <td>3003</td>
+      </tr>
+      <tr>
+        <td>/api/v1/billing/*</td>
+        <td>Billing Service (Node.js)</td>
+        <td>HTTP/REST</td>
+        <td>3004</td>
+      </tr>
+      <tr>
+        <td>/api/v1/lab/*</td>
+        <td>Lab Service (Node.js)</td>
+        <td>HTTP/REST</td>
+        <td>3005</td>
+      </tr>
+      <tr>
+        <td>/api/v1/ai/*</td>
+        <td>AI Service (FastAPI)</td>
+        <td>HTTP/REST</td>
+        <td>8001</td>
+      </tr>
+      <tr>
+        <td>/ws/queue</td>
+        <td>Queue Service (Node.js)</td>
+        <td>WebSocket</td>
+        <td>3010</td>
+      </tr>
+      <tr>
+        <td>/ws/notifications</td>
+        <td>Notification Service (Node.js)</td>
+        <td>WebSocket</td>
+        <td>3011</td>
+      </tr>
+    </tbody></table>
+
+    <h3>9.1 Nginx Configuration</h3>
+    <pre># /etc/nginx/conf.d/api-gateway.conf
+upstream auth_service {
+    server auth:3001;
+}
+
+upstream patient_service {
+    server patient:3002;
+}
+
+upstream clinical_service {
+    server clinical:8000;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name api.hospitalplatform.com;
+    
+    # SSL Configuration
+    ssl_certificate /etc/ssl/certs/platform.crt;
+    ssl_certificate_key /etc/ssl/private/platform.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    
+    # Security Headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    
+    # Rate Limiting
+    limit_req_zone $binary_remote_addr zone=api_limit:10m rate=100r/m;
+    limit_req zone=api_limit burst=20 nodelay;
+    
+    # Auth Service
+    location /api/v1/auth/ {
+        proxy_pass http://auth_service;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+    
+    # Patient Service
+    location /api/v1/patients/ {
+        # JWT validation at gateway level
+        auth_request /auth/validate;
+        
+        proxy_pass http://patient_service;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+    
+    # Clinical Service (FastAPI)
+    location /api/v1/clinical/ {
+        auth_request /auth/validate;
+        proxy_pass http://clinical_service;
+    }
+    
+    # WebSocket for Real-Time Queue
+    location /ws/queue {
+        proxy_pass http://queue_service;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_read_timeout 3600s;
+    }
+}
+    </pre>
+
+    <h2>10. Notification System Architecture</h2>
+    
+    <div style="text-align: center; margin: 20px 0;">
+      <img src="https://miro.medium.com/v2/resize:fit:1400/1*9z3sbaE6yGT1Ukau8iq4ew.png" alt="Notification System Architecture" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; background: white;" data-height-listener-added="true">
+      <p style="font-size: 9pt; color: #666; margin-top: 8px;"><em>Figure 10.1: Multi-Channel Notification Architecture</em></p>
+    </div>
+
+    <h3>10.1 Notification Channels</h3>
+    <table>
+      <tbody><tr>
+        <th>Channel</th>
+        <th>Provider</th>
+        <th>Use Cases</th>
+        <th>Priority</th>
+      </tr>
+      <tr>
+        <td><strong>Email</strong></td>
+        <td>Amazon SES</td>
+        <td>Lab reports, invoices, appointment confirmations</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><strong>SMS</strong></td>
+        <td>AWS SNS / Twilio</td>
+        <td>OTP, appointment reminders, critical alerts</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>WhatsApp</strong></td>
+        <td>Meta Cloud API</td>
+        <td>Rich media reports, appointment cards</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><strong>Push Notifications</strong></td>
+        <td>Firebase Cloud Messaging</td>
+        <td>Mobile app notifications, queue updates</td>
+        <td>Low</td>
+      </tr>
+      <tr>
+        <td><strong>In-App</strong></td>
+        <td>WebSocket</td>
+        <td>Real-time dashboard alerts</td>
+        <td>High</td>
+      </tr>
+    </tbody></table>
+
+    <div style="text-align: center; margin: 20px 0;">
+      <img src="https://uploads-ssl.webflow.com/5f3c19f18169b62a0d0bf387/63bd9b87fcad47a1fa779f5c_635adb5f9153427f1638af3c_Whastapp%2520architecture%2520%281%29.jpeg" alt="WhatsApp Business API Architecture" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; background: white;" data-height-listener-added="true">
+      <p style="font-size: 9pt; color: #666; margin-top: 8px;"><em>Figure 10.2: WhatsApp Business API Integration Architecture</em></p>
+    </div>
+
+    <h3>10.2 Event-Driven Notification Flow</h3>
+    <pre>Notification Flow:
+1. Source Service → Publishes event to Kafka
+   Topic: "hospital.notifications.outbox"
+   
+2. Notification Service → Consumes event from Kafka
+   
+3. Notification Service → Determines channels based on:
+   - Event type
+   - User preferences
+   - Urgency level
+   
+4. Notification Service → Queues messages in channel-specific SQS queues:
+   - sms-queue
+   - email-queue
+   - whatsapp-queue
+   - push-queue
+   
+5. Worker Processes → Consume from queues and send via providers
+   
+6. Success/Failure → Store in notification_logs table
+   
+7. Failed Messages → Moved to Dead Letter Queue (DLQ) for retry
+    </pre>
+
+    <h3>10.3 Notification Service Implementation (Node.js)</h3>
+    <pre>// notification.service.ts
+import { Injectable } from '@nestjs/common';
+import { SES, SNS } from 'aws-sdk';
+import axios from 'axios';
+
+interface NotificationPayload {
+  tenant_id: string;
+  recipient_id: string;
+  type: string;
+  channel: 'EMAIL' | 'SMS' | 'WHATSAPP' | 'PUSH';
+  template: string;
+  data: Record&lt;string, any&gt;;
+}
+
+@Injectable()
+export class NotificationService {
+  private ses: SES;
+  private sns: SNS;
+  
+  constructor() {
+    this.ses = new SES({ region: 'us-east-1' });
+    this.sns = new SNS({ region: 'us-east-1' });
+  }
+  
+  async sendEmail(payload: NotificationPayload) {
+    const { recipient_id, template, data, tenant_id } = payload;
+    
+    // Get recipient email
+    const recipient = await this.getRecipient(recipient_id, tenant_id);
+    
+    // Render template
+    const { subject, html } = await this.renderTemplate(template, data);
+    
+    // Send via SES
+    try {
+      const result = await this.ses.sendEmail({
+        Source: '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e78988938e818e8486938e888994a78f8894978e93868b978b86938188958ac984888a">[email&#160;protected]</a>',
+        Destination: {
+          ToAddresses: [recipient.email]
+        },
+        Message: {
+          Subject: { Data: subject },
+          Body: {
+            Html: { Data: html }
+          }
+        }
+      }).promise();
+      
+      // Log success
+      await this.logNotification({
+        tenant_id,
+        recipient_id,
+        channel: 'EMAIL',
+        status: 'SENT',
+        message_id: result.MessageId
+      });
+      
+      return { success: true, message_id: result.MessageId };
+    } catch (error) {
+      // Log failure
+      await this.logNotification({
+        tenant_id,
+        recipient_id,
+        channel: 'EMAIL',
+        status: 'FAILED',
+        error: error.message
+      });
+      
+      throw error;
+    }
+  }
+  
+  async sendSMS(payload: NotificationPayload) {
+    const { recipient_id, data, tenant_id } = payload;
+    
+    const recipient = await this.getRecipient(recipient_id, tenant_id);
+    const message = await this.renderTemplate(payload.template, data);
+    
+    try {
+      const result = await this.sns.publish({
+        PhoneNumber: recipient.mobile,
+        Message: message.text
+      }).promise();
+      
+      await this.logNotification({
+        tenant_id,
+        recipient_id,
+        channel: 'SMS',
+        status: 'SENT',
+        message_id: result.MessageId
+      });
+      
+      return { success: true, message_id: result.MessageId };
+    } catch (error) {
+      await this.logNotification({
+        tenant_id,
+        recipient_id,
+        channel: 'SMS',
+        status: 'FAILED',
+        error: error.message
+      });
+      
+      throw error;
+    }
+  }
+  
+  async sendWhatsApp(payload: NotificationPayload) {
+    const { recipient_id, template, data, tenant_id } = payload;
+    
+    const recipient = await this.getRecipient(recipient_id, tenant_id);
+    
+    // WhatsApp Business API
+    const whatsappApiUrl = `https://graph.facebook.com/v18.0/${process.env.WHATSAPP_PHONE_ID}/messages`;
+    
+    try {
+      const response = await axios.post(
+        whatsappApiUrl,
+        {
+          messaging_product: 'whatsapp',
+          to: recipient.mobile,
+          type: 'template',
+          template: {
+            name: template,
+            language: { code: 'en' },
+            components: [
+              {
+                type: 'body',
+                parameters: Object.keys(data).map(key =&gt; ({
+                  type: 'text',
+                  text: data[key]
+                }))
+              }
+            ]
+          }
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${process.env.WHATSAPP_ACCESS_TOKEN}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      
+      await this.logNotification({
+        tenant_id,
+        recipient_id,
+        channel: 'WHATSAPP',
+        status: 'SENT',
+        message_id: response.data.messages[0].id
+      });
+      
+      return { success: true, message_id: response.data.messages[0].id };
+    } catch (error) {
+      await this.logNotification({
+        tenant_id,
+        recipient_id,
+        channel: 'WHATSAPP',
+        status: 'FAILED',
+        error: error.response?.data || error.message
+      });
+      
+      throw error;
+    }
+  }
+  
+  async sendPushNotification(payload: NotificationPayload) {
+    const { recipient_id, data, tenant_id } = payload;
+    
+    // Get user's FCM token
+    const fcmToken = await this.getFCMToken(recipient_id, tenant_id);
+    
+    const message = {
+      token: fcmToken,
+      notification: {
+        title: data.title,
+        body: data.body
+      },
+      data: {
+        click_action: data.click_action,
+        payload: JSON.stringify(data.payload)
+      }
+    };
+    
+    try {
+      const admin = require('firebase-admin');
+      const result = await admin.messaging().send(message);
+      
+      await this.logNotification({
+        tenant_id,
+        recipient_id,
+        channel: 'PUSH',
+        status: 'SENT',
+        message_id: result
+      });
+      
+      return { success: true, message_id: result };
+    } catch (error) {
+      await this.logNotification({
+        tenant_id,
+        recipient_id,
+        channel: 'PUSH',
+        status: 'FAILED',
+        error: error.message
+      });
+      
+      throw error;
+    }
+  }
+}
+    </pre>
+
+    <h3>10.4 Kafka Event Consumer</h3>
+    <pre>// notification.consumer.ts
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Kafka, Consumer } from 'kafkajs';
+
+@Injectable()
+export class NotificationConsumer implements OnModuleInit {
+  private kafka: Kafka;
+  private consumer: Consumer;
+  
+  constructor(private notificationService: NotificationService) {
+    this.kafka = new Kafka({
+      clientId: 'notification-service',
+      brokers: [process.env.KAFKA_BROKER]
+    });
+    
+    this.consumer = this.kafka.consumer({ 
+      groupId: 'notification-consumers' 
+    });
+  }
+  
+  async onModuleInit() {
+    await this.consumer.connect();
+    await this.consumer.subscribe({ 
+      topic: 'hospital.notifications.outbox',
+      fromBeginning: false
+    });
+    
+    await this.consumer.run({
+      eachMessage: async ({ topic, partition, message }) =&gt; {
+        const event = JSON.parse(message.value.toString());
+        
+        try {
+          await this.processNotification(event);
+        } catch (error) {
+          console.error('Failed to process notification:', error);
+          // Send to DLQ
+          await this.sendToDLQ(event, error);
+        }
+      }
+    });
+  }
+  
+  async processNotification(event: any) {
+    const { event_type, data } = event;
+    
+    switch (event_type) {
+      case 'appointment.booked':
+        await this.notificationService.sendSMS({
+          tenant_id: data.tenant_id,
+          recipient_id: data.patient_id,
+          type: 'APPOINTMENT_CONFIRMATION',
+          channel: 'SMS',
+          template: 'appointment_booked',
+          data: {
+            patient_name: data.patient_name,
+            doctor_name: data.doctor_name,
+            appointment_date: data.appointment_date,
+            appointment_time: data.appointment_time
+          }
+        });
+        break;
+        
+      case 'lab.report.ready':
+        // Send via multiple channels
+        await Promise.all([
+          this.notificationService.sendEmail({
+            tenant_id: data.tenant_id,
+            recipient_id: data.patient_id,
+            type: 'LAB_REPORT',
+            channel: 'EMAIL',
+            template: 'lab_report_ready',
+            data: {
+              report_url: data.report_url,
+              test_name: data.test_name
+            }
+          }),
+          this.notificationService.sendWhatsApp({
+            tenant_id: data.tenant_id,
+            recipient_id: data.patient_id,
+            type: 'LAB_REPORT',
+            channel: 'WHATSAPP',
+            template: 'lab_report',
+            data: {
+              patient_name: data.patient_name,
+              test_name: data.test_name
+            }
+          })
+        ]);
+        break;
+        
+      case 'invoice.generated':
+        await this.notificationService.sendEmail({
+          tenant_id: data.tenant_id,
+          recipient_id: data.patient_id,
+          type: 'INVOICE',
+          channel: 'EMAIL',
+          template: 'invoice',
+          data: {
+            invoice_number: data.invoice_number,
+            amount: data.amount,
+            invoice_url: data.invoice_url
+          }
+        });
+        break;
+    }
+  }
+}
+    </pre>
+
+    <h3>10.5 Retry Mechanism with DLQ</h3>
+    <pre>-- Notification Logs Table
+CREATE TABLE notification_logs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    tenant_id UUID NOT NULL,
+    recipient_id UUID NOT NULL,
+    channel VARCHAR(20),
+    type VARCHAR(50),
+    status VARCHAR(20), -- SENT, FAILED, PENDING
+    message_id VARCHAR(255),
+    error TEXT,
+    retry_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW(),
+    sent_at TIMESTAMP
+);
+
+-- Dead Letter Queue Handler
+async function retryFailedNotifications() {
+  const failedNotifications = await db.query(`
+    SELECT * FROM notification_logs
+    WHERE status = 'FAILED'
+      AND retry_count &lt; 3
+      AND created_at &gt; NOW() - INTERVAL '24 hours'
+  `);
+  
+  for (const notification of failedNotifications) {
+    try {
+      // Retry sending
+      await notificationService.send(notification);
+      
+      // Update status
+      await db.query(`
+        UPDATE notification_logs
+        SET status = 'SENT', 
+            sent_at = NOW(),
+            retry_count = retry_count + 1
+        WHERE id = $1
+      `, [notification.id]);
+    } catch (error) {
+      // Increment retry count
+      await db.query(`
+        UPDATE notification_logs
+        SET retry_count = retry_count + 1,
+            error = $2
+        WHERE id = $1
+      `, [notification.id, error.message]);
+    }
+  }
+}
+
+// Run retry job every 5 minutes
+setInterval(retryFailedNotifications, 5 * 60 * 1000);
+    </pre>
+
+    <!-- S3 Storage -->
+    <h2>10. Storage Architecture (AWS S3)</h2>
+    <p>S3 buckets are configured with strict policies.</p>
+    
+    <h3>10.1 Bucket Organization Strategy</h3>
+    <pre>S3 Bucket Structure:
+
+hms-documents-prod/
+  ├── hospital_abc123/
+  │   ├── lab_reports/
+  │   │   ├── 2023/
+  │   │   │   ├── 10/
+  │   │   │   │   ├── report_uuid_1.pdf
+  │   │   │   │   └── report_uuid_2.pdf
+  │   ├── prescriptions/
+  │   │   └── prescription_uuid_1.pdf
+  │   ├── discharge_summaries/
+  │   ├── radiology_images/
+  │   │   ├── xray/
+  │   │   ├── ct_scan/
+  │   │   └── mri/
+  │   └── patient_documents/
+  ├── hospital_xyz789/
+      └── lab_reports/
+          └── ...
+
+Naming Convention:
+{hospital_id}/{document_type}/{year}/{month}/{unique_id}.{ext}
+    </pre>
+
+    <h3>10.2 S3 Security Configuration</h3>
+    <ul>
+      <li><strong>Encryption:</strong> Server-side encryption (SSE-S3) enabled by default.</li>
+      <li><strong>Access Control:</strong> All public access blocked. Files are accessed via Pre-Signed URLs generated by the backend with a 5-minute expiry.</li>
+      <li><strong>Versioning:</strong> Enabled for audit trails and recovery</li>
+      <li><strong>Lifecycle Policy:</strong> Move generic logs to Glacier after 90 days; Retain medical records indefinitely (WORM compliance).</li>
+      <li><strong>Access Logging:</strong> All S3 access logged to separate audit bucket</li>
+    </ul>
+
+    <h3>10.3 Document Service Implementation</h3>
+    <pre>// document.service.ts (Node.js)
+import { S3 } from 'aws-sdk';
+import { v4 as uuidv4 } from 'uuid';
+
+@Injectable()
+export class DocumentService {
+  private s3: S3;
+  private bucket: string = process.env.S3_BUCKET;
+  
+  constructor() {
+    this.s3 = new S3({ region: 'us-east-1' });
+  }
+  
+  async uploadDocument(
+    file: Express.Multer.File,
+    documentType: string,
+    tenantId: string,
+    patientId: string
+  ) {
+    const fileId = uuidv4();
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    
+    // Generate S3 key with tenant isolation
+    const key = `${tenantId}/${documentType}/${year}/${month}/${fileId}.${this.getFileExtension(file.originalname)}`;
+    
+    // Upload to S3
+    await this.s3.putObject({
+      Bucket: this.bucket,
+      Key: key,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+      Metadata: {
+        'tenant-id': tenantId,
+        'patient-id': patientId,
+        'document-type': documentType,
+        'original-filename': file.originalname
+      },
+      ServerSideEncryption: 'AES256'
+    }).promise();
+    
+    // Store metadata in PostgreSQL
+    const document = await this.documentsRepo.save({
+      id: fileId,
+      hospital_id: tenantId,
+      patient_id: patientId,
+      document_type: documentType,
+      s3_key: key,
+      file_name: file.originalname,
+      file_size: file.size,
+      mime_type: file.mimetype,
+      uploaded_at: new Date()
+    });
+    
+    return document;
+  }
+  
+  async getDocumentUrl(documentId: string, tenantId: string) {
+    // Fetch document metadata with tenant validation
+    const document = await this.documentsRepo.findOne({
+      where: { id: documentId, hospital_id: tenantId }
+    });
+    
+    if (!document) {
+      throw new NotFoundException('Document not found');
+    }
+    
+    // Generate pre-signed URL (expires in 5 minutes)
+    const url = await this.s3.getSignedUrlPromise('getObject', {
+      Bucket: this.bucket,
+      Key: document.s3_key,
+      Expires: 300 // 5 minutes
+    });
+    
+    return { url, file_name: document.file_name };
+  }
+  
+  async deleteDocument(documentId: string, tenantId: string) {
+    const document = await this.documentsRepo.findOne({
+      where: { id: documentId, hospital_id: tenantId }
+    });
+    
+    if (!document) {
+      throw new NotFoundException('Document not found');
+    }
+    
+    // Delete from S3
+    await this.s3.deleteObject({
+      Bucket: this.bucket,
+      Key: document.s3_key
+    }).promise();
+    
+    // Soft delete in database (for audit)
+    await this.documentsRepo.update(documentId, {
+      deleted_at: new Date()
+    });
+  }
+  
+  private getFileExtension(filename: string): string {
+    return filename.split('.').pop()?.toLowerCase() || '';
+  }
+}
+    </pre>
+
+    <h3>10.4 S3 Lifecycle Policy</h3>
+    <pre>{
+  "Rules": [
+    {
+      "Id": "Archive old logs",
+      "Status": "Enabled",
+      "Filter": {
+        "Prefix": "*/logs/"
+      },
+      "Transitions": [
+        {
+          "Days": 90,
+          "StorageClass": "GLACIER"
+        }
+      ]
+    },
+    {
+      "Id": "Enable versioning for medical records",
+      "Status": "Enabled",
+      "Filter": {
+        "Prefix": "*/lab_reports/"
+      },
+      "NoncurrentVersionTransitions": [
+        {
+          "NoncurrentDays": 30,
+          "StorageClass": "GLACIER"
+        }
+      ]
+    }
+  ]
+}
+    </pre>
+
+    <h2>11. AI/ML Integration Layer</h2>
+
+    <div style="text-align: center; margin: 20px 0;">
+      <img src="https://www.chitika.com/content/images/size/w1200/2025/01/image1-3.jpg" alt="AI Architecture for Healthcare" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; background: white;" data-height-listener-added="true">
+      <p style="font-size: 9pt; color: #666; margin-top: 8px;"><em>Figure 11.1: AI/ML Integration Architecture for Healthcare Applications</em></p>
+    </div>
+
+    <h3>11.1 AI Use Cases</h3>
+    <table>
+      <tbody><tr>
+        <th>Use Case</th>
+        <th>Technology</th>
+        <th>Model</th>
+        <th>Implementation</th>
+      </tr>
+      <tr>
+        <td><strong>Clinical Note Summarization</strong></td>
+        <td>LLM (GPT-4 / Claude)</td>
+        <td>OpenAI API</td>
+        <td>Python FastAPI</td>
+      </tr>
+      <tr>
+        <td><strong>Similar Patient Search (RAG)</strong></td>
+        <td>Vector Embeddings</td>
+        <td>text-embedding-3-small</td>
+        <td>pgvector + FastAPI</td>
+      </tr>
+      <tr>
+        <td><strong>Lab Report OCR</strong></td>
+        <td>Computer Vision</td>
+        <td>AWS Textract / Tesseract</td>
+        <td>Python</td>
+      </tr>
+      <tr>
+        <td><strong>Readmission Risk Prediction</strong></td>
+        <td>Machine Learning</td>
+        <td>XGBoost / Random Forest</td>
+        <td>Scikit-learn</td>
+      </tr>
+      <tr>
+        <td><strong>No-Show Prediction</strong></td>
+        <td>Time Series</td>
+        <td>LSTM / Prophet</td>
+        <td>TensorFlow</td>
+      </tr>
+      <tr>
+        <td><strong>Bed Utilization Forecasting</strong></td>
+        <td>Time Series</td>
+        <td>Prophet / ARIMA</td>
+        <td>Prophet Library</td>
+      </tr>
+    </tbody></table>
+
+    <h3>11.2 RAG (Retrieval Augmented Generation) Implementation</h3>
+    <pre># ai_service.py (Python FastAPI)
+from fastapi import FastAPI, Depends
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import PGVector
+from langchain.llms import OpenAI
+from langchain.chains import RetrievalQA
+import asyncpg
+
+app = FastAPI()
+
+class ClinicalRAGService:
+    def __init__(self):
+        self.embeddings = OpenAIEmbeddings(
+            model="text-embedding-3-small"
+        )
+        self.llm = OpenAI(temperature=0.3, model="gpt-4")
+        
+        # PostgreSQL with pgvector
+        self.connection_string = PGVector.connection_string_from_db_params(
+            driver="psycopg2",
+            host=os.getenv("DB_HOST"),
+            port=5432,
+            database=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+        )
+    
+    async def index_clinical_note(
+        self, 
+        note_id: str,
+        clinical_text: str,
+        tenant_id: str,
+        patient_id: str
+    ):
+        """
+        Generate embedding and store in pgvector
+        """
+        # Generate embedding
+        embedding = await self.embeddings.aembed_query(clinical_text)
+        
+        # Store in PostgreSQL with pgvector
+        async with asyncpg.create_pool(self.connection_string) as pool:
+            await pool.execute("""
+                INSERT INTO clinical_embeddings 
+                (id, hospital_id, patient_id, embedding, clinical_summary, created_at)
+                VALUES ($1, $2, $3, $4::vector, $5, NOW())
+            """, note_id, tenant_id, patient_id, embedding, clinical_text)
+    
+    async def find_similar_cases(
+        self,
+        query_text: str,
+        tenant_id: str,
+        top_k: int = 5
+    ):
+        """
+        Find similar clinical cases using vector search
+        """
+        # Generate query embedding
+        query_embedding = await self.embeddings.aembed_query(query_text)
+        
+        # Vector similarity search with tenant isolation
+        async with asyncpg.create_pool(self.connection_string) as pool:
+            results = await pool.fetch("""
+                SELECT 
+                    patient_id,
+                    clinical_summary,
+                    1 - (embedding &lt;=&gt; $1::vector) as similarity
+                FROM clinical_embeddings
+                WHERE hospital_id = $2
+                ORDER BY embedding &lt;=&gt; $1::vector
+                LIMIT $3
+            """, query_embedding, tenant_id, top_k)
+        
+        return [
+            {
+                "patient_id": row['patient_id'],
+                "summary": row['clinical_summary'],
+                "similarity": float(row['similarity'])
+            }
+            for row in results
+        ]
+    
+    async def clinical_qa(
+        self,
+        question: str,
+        patient_id: str,
+        tenant_id: str
+    ):
+        """
+        Answer questions about patient using RAG
+        """
+        # Fetch patient's clinical history
+        vectorstore = PGVector(
+            connection_string=self.connection_string,
+            embedding_function=self.embeddings,
+            collection_name=f"tenant_{tenant_id}"
+        )
+        
+        # Create retrieval QA chain
+        qa_chain = RetrievalQA.from_chain_type(
+            llm=self.llm,
+            chain_type="stuff",
+            retriever=vectorstore.as_retriever(
+                search_kwargs={
+                    "filter": {"patient_id": patient_id},
+                    "k": 3
+                }
+            )
+        )
+        
+        # Get answer
+        answer = await qa_chain.arun(question)
+        return answer
+
+# FastAPI Endpoints
+rag_service = ClinicalRAGService()
+
+@app.post("/ai/index-clinical-note")
+async def index_note(
+    note_id: str,
+    clinical_text: str,
+    patient_id: str,
+    tenant_id: str = Depends(get_tenant_context)
+):
+    await rag_service.index_clinical_note(
+        note_id, clinical_text, tenant_id, patient_id
+    )
+    return {"status": "indexed"}
+
+@app.post("/ai/find-similar-cases")
+async def find_similar(
+    query: str,
+    tenant_id: str = Depends(get_tenant_context)
+):
+    results = await rag_service.find_similar_cases(query, tenant_id)
+    return {"similar_cases": results}
+
+@app.post("/ai/clinical-qa")
+async def clinical_question(
+    question: str,
+    patient_id: str,
+    tenant_id: str = Depends(get_tenant_context)
+):
+    answer = await rag_service.clinical_qa(question, patient_id, tenant_id)
+    return {"answer": answer}
+    </pre>
+
+    <h3>11.3 Predictive Analytics (Readmission Risk)</h3>
+    <pre># ml_models.py
+import pandas as pd
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+import joblib
+
+class ReadmissionPredictor:
+    def __init__(self):
+        # Load pre-trained model
+        self.model = joblib.load('models/readmission_model.pkl')
+        self.scaler = joblib.load('models/scaler.pkl')
+    
+    async def predict_readmission_risk(
+        self,
+        patient_data: dict
+    ) -&gt; dict:
+        """
+        Predict 30-day readmission risk
+        
+        Features:
+        - Age
+        - Number of previous admissions
+        - Length of stay
+        - Comorbidities count
+        - Emergency admission (yes/no)
+        - Discharge disposition
+        """
+        # Prepare features
+        features = pd.DataFrame([{
+            'age': patient_data['age'],
+            'previous_admissions': patient_data['previous_admissions'],
+            'length_of_stay': patient_data['length_of_stay'],
+            'comorbidities_count': len(patient_data['comorbidities']),
+            'is_emergency': int(patient_data['admission_type'] == 'EMERGENCY'),
+            'discharge_to_home': int(patient_data['discharge_disposition'] == 'HOME')
+        }])
+        
+        # Scale features
+        features_scaled = self.scaler.transform(features)
+        
+        # Predict
+        risk_probability = self.model.predict_proba(features_scaled)[0][1]
+        risk_category = 'HIGH' if risk_probability &gt; 0.7 else 'MEDIUM' if risk_probability &gt; 0.4 else 'LOW'
+        
+        # Get feature importance
+        feature_importance = dict(zip(
+            features.columns,
+            self.model.feature_importances_
+        ))
+        
+        return {
+            'risk_score': round(risk_probability, 3),
+            'risk_category': risk_category,
+            'contributing_factors': sorted(
+                feature_importance.items(),
+                key=lambda x: x[1],
+                reverse=True
+            )[:3]
+        }
+
+# FastAPI endpoint
+@app.post("/ai/predict-readmission")
+async def predict_readmission(
+    patient_id: str,
+    tenant_id: str = Depends(get_tenant_context)
+):
+    # Fetch patient data
+    patient_data = await fetch_patient_clinical_data(patient_id, tenant_id)
+    
+    # Predict
+    predictor = ReadmissionPredictor()
+    prediction = await predictor.predict_readmission_risk(patient_data)
+    
+    return prediction
+    </pre>
+
+    <!-- Deployment -->
+    <h2>11. Deployment &amp; CI/CD</h2>
+    <p>Infrastructure is defined as code (IaC) using Terraform.</p>
+    
+    <h3>11.1 Infrastructure as Code (Terraform)</h3>
+    <pre># main.tf
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~&gt; 5.0"
+    }
+  }
+  
+  backend "s3" {
+    bucket = "hms-terraform-state"
+    key    = "prod/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+
+# VPC
+module "vpc" {
+  source = "./modules/vpc"
+  
+  vpc_cidr           = "10.0.0.0/16"
+  availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  environment        = var.environment
+}
+
+# ECS Cluster
+resource "aws_ecs_cluster" "main" {
+  name = "hms-${var.environment}"
+  
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+}
+
+# RDS PostgreSQL
+module "rds" {
+  source = "./modules/rds"
+  
+  identifier          = "hms-${var.environment}"
+  engine_version      = "15.4"
+  instance_class      = var.db_instance_class
+  allocated_storage   = var.db_storage
+  multi_az            = true
+  backup_retention    = 30
+  subnet_ids          = module.vpc.database_subnet_ids
+  security_group_ids  = [aws_security_group.rds.id]
+}
+
+# ElastiCache Redis
+resource "aws_elasticache_cluster" "redis" {
+  cluster_id           = "hms-redis-${var.environment}"
+  engine               = "redis"
+  engine_version       = "7.0"
+  node_type            = "cache.r6g.large"
+  num_cache_nodes      = 1
+  parameter_group_name = "default.redis7"
+  subnet_group_name    = aws_elasticache_subnet_group.main.name
+  security_group_ids   = [aws_security_group.redis.id]
+}
+
+# S3 Bucket
+resource "aws_s3_bucket" "documents" {
+  bucket = "hms-documents-${var.environment}"
+  
+  versioning {
+    enabled = true
+  }
+  
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+  
+  lifecycle_rule {
+    enabled = true
+    
+    transition {
+      days          = 90
+      storage_class = "GLACIER"
+    }
+  }
+}
+
+# Application Load Balancer
+resource "aws_lb" "main" {
+  name               = "hms-alb-${var.environment}"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb.id]
+  subnets            = module.vpc.public_subnet_ids
+  
+  enable_deletion_protection = true
+  enable_http2              = true
+}
+
+# ECS Service - Auth Service
+module "auth_service" {
+  source = "./modules/ecs-service"
+  
+  service_name    = "auth-service"
+  cluster_id      = aws_ecs_cluster.main.id
+  task_definition = aws_ecs_task_definition.auth.arn
+  desired_count   = var.auth_service_count
+  subnet_ids      = module.vpc.private_subnet_ids
+  security_groups = [aws_security_group.ecs_tasks.id]
+  target_group_arn = aws_lb_target_group.auth.arn
+  
+  auto_scaling = {
+    min_capacity = 2
+    max_capacity = 10
+    cpu_threshold = 70
+  }
+}
+    </pre>
+
+    <h3>11.2 CI/CD Pipeline Stages</h3>
+    <ol>
+      <li><strong>Build:</strong> Docker build React app and Microservices.</li>
+      <li><strong>Test:</strong> Run PyTest (Backend) and Jest/React Testing Library (Frontend).</li>
+      <li><strong>Security Scan:</strong> SonarQube (Static Analysis) + Snyk (Dependency Scan).</li>
+      <li><strong>Deploy Dev:</strong> Deploy to AWS ECS Dev Cluster.</li>
+      <li><strong>Approval:</strong> Manual gate for Production.</li>
+      <li><strong>Deploy Prod:</strong> Rolling update to Production ECS Cluster.</li>
+    </ol>
+
+    <h3>11.3 GitHub Actions Pipeline</h3>
+    <pre># .github/workflows/deploy.yml
+name: Deploy Hospital Platform
+
+on:
+  push:
+    branches: [main, develop]
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: 123456789.dkr.ecr.us-east-1.amazonaws.com
+
+jobs:
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+      
+      - name: Run tests
+        run: npm test -- --coverage
+      
+      - name: Type check
+        run: npm run type-check
+      
+      - name: Lint
+        run: npm run lint
+
+  test-backend-node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        working-directory: ./services/auth-service
+        run: npm ci
+      
+      - name: Run tests
+        run: npm test
+
+  test-backend-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        working-directory: ./services/ai-service
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+      
+      - name: Run tests
+        run: pytest --cov=./ --cov-report=xml
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run Snyk Security Scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+      - name: SonarQube Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  build-and-push:
+    needs: [test-frontend, test-backend-node, test-backend-python, security-scan]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - auth-service
+          - patient-service
+          - opd-service
+          - clinical-service
+          - ai-service
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      
+      - name: Build and push Docker image
+        working-directory: ./services/${{ matrix.service }}
+        run: |
+          docker build -t $ECR_REGISTRY/${{ matrix.service }}:${{ github.sha }} .
+          docker push $ECR_REGISTRY/${{ matrix.service }}:${{ github.sha }}
+
+  deploy-dev:
+    needs: build-and-push
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to ECS Dev
+        run: |
+          aws ecs update-service \
+            --cluster hms-dev \
+            --service auth-service \
+            --force-new-deployment
+
+  deploy-prod:
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://api.hospitalplatform.com
+    steps:
+      - name: Deploy to ECS Prod
+        run: |
+          aws ecs update-service \
+            --cluster hms-prod \
+            --service auth-service \
+            --force-new-deployment \
+            --deployment-configuration "maximumPercent=200,minimumHealthyPercent=100"
+    </pre>
+
+    <h3>11.4 Docker Configuration</h3>
+    <pre># services/auth-service/Dockerfile (Node.js)
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+RUN npm run build
+
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+
+EXPOSE 3001
+
+CMD ["node", "dist/main.js"]
+
+# services/ai-service/Dockerfile (Python FastAPI)
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update &amp;&amp; apt-get install -y \
+    gcc \
+    postgresql-client \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+    </pre>
+
+    <h2>12. Monitoring &amp; Observability</h2>
+    
+    <h3>12.1 Monitoring Stack</h3>
+    <table>
+      <tbody><tr>
+        <th>Component</th>
+        <th>Tool</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><strong>Metrics</strong></td>
+        <td>CloudWatch / Prometheus</td>
+        <td>CPU, memory, request count, latency</td>
+      </tr>
+      <tr>
+        <td><strong>Logs</strong></td>
+        <td>CloudWatch Logs / ELK Stack</td>
+        <td>Application logs, error tracking</td>
+      </tr>
+      <tr>
+        <td><strong>Tracing</strong></td>
+        <td>AWS X-Ray / Jaeger</td>
+        <td>Distributed tracing, request flow</td>
+      </tr>
+      <tr>
+        <td><strong>Dashboards</strong></td>
+        <td>Grafana</td>
+        <td>Visualization, alerting</td>
+      </tr>
+      <tr>
+        <td><strong>APM</strong></td>
+        <td>New Relic / Datadog</td>
+        <td>Application performance monitoring</td>
+      </tr>
+      <tr>
+        <td><strong>Uptime</strong></td>
+        <td>StatusCake / Pingdom</td>
+        <td>External uptime monitoring</td>
+      </tr>
+    </tbody></table>
+
+    <h3>12.2 Key Metrics to Monitor</h3>
+    <ul>
+      <li><strong>API Latency:</strong> P50, P95, P99 response times</li>
+      <li><strong>Error Rate:</strong> 4xx and 5xx responses</li>
+      <li><strong>Database Performance:</strong> Query execution time, connection pool utilization</li>
+      <li><strong>SMS/Email Delivery:</strong> Success rate, failure reasons</li>
+      <li><strong>Queue Depth:</strong> Kafka lag, SQS message age</li>
+      <li><strong>Resource Utilization:</strong> CPU, memory, disk I/O</li>
+      <li><strong>Business Metrics:</strong> Patient registrations, appointments booked, revenue</li>
+    </ul>
+
+    <h3>12.3 Structured Logging (Node.js)</h3>
+    <pre>// logger.ts
+import winston from 'winston';
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.errors({ stack: true }),
+    winston.format.json()
+  ),
+  defaultMeta: { 
+    service: process.env.SERVICE_NAME,
+    environment: process.env.NODE_ENV
+  },
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.CloudWatch({
+      logGroupName: '/aws/ecs/hms',
+      logStreamName: process.env.SERVICE_NAME
+    })
+  ]
+});
+
+// Usage
+logger.info('Patient registered', {
+  tenant_id: 'hosp_123',
+  patient_id: 'pat_456',
+  event: 'patient.registered'
+});
+
+logger.error('Database connection failed', {
+  tenant_id: 'hosp_123',
+  error: error.message,
+  stack: error.stack
+});
+    </pre>
+
+    <h3>12.4 Distributed Tracing (X-Ray)</h3>
+    <pre>// X-Ray middleware (Node.js)
+const AWSXRay = require('aws-xray-sdk-core');
+const AWS = AWSXRay.captureAWS(require('aws-sdk'));
+
+app.use(AWSXRay.express.openSegment('auth-service'));
+
+app.get('/api/patients/:id', async (req, res) =&gt; {
+  const segment = AWSXRay.getSegment();
+  const subsegment = segment.addNewSubsegment('fetch-patient');
+  
+  try {
+    const patient = await patientService.findOne(req.params.id);
+    subsegment.close();
+    res.json(patient);
+  } catch (error) {
+    subsegment.addError(error);
+    subsegment.close();
+    throw error;
+  }
+});
+
+app.use(AWSXRay.express.closeSegment());
+    </pre>
+
+    <h3>12.5 Alerting Rules</h3>
+    <pre># Prometheus Alert Rules
+groups:
+  - name: hospital_platform_alerts
+    interval: 30s
+    rules:
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) &gt; 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }} for service {{ $labels.service }}"
+      
+      - alert: HighAPILatency
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) &gt; 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High API latency"
+          description: "P95 latency is {{ $value }}s"
+      
+      - alert: DatabaseConnectionPoolExhausted
+        expr: pg_stat_database_numbackends / pg_settings_max_connections &gt; 0.9
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Database connection pool nearly exhausted"
+      
+      - alert: NotificationDeliveryFailed
+        expr: rate(notification_failures_total[10m]) &gt; 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High notification failure rate"
+    </pre>
+
+    <h2>13. Disaster Recovery &amp; Scalability</h2>
+    
+    <h3>13.1 Disaster Recovery Strategy</h3>
+    <p>
+      <strong>RPO (Recovery Point Objective):</strong> 15 minutes.<br>
+      <strong>RTO (Recovery Time Objective):</strong> 2 hours.
+    </p>
+    <ul>
+      <li><strong>Database:</strong> RDS Automated Backups with Cross-Region Replication to a secondary AWS region.</li>
+      <li><strong>S3:</strong> Cross-Region Replication (CRR) enabled for critical buckets</li>
+      <li><strong>Infrastructure:</strong> Multi-region Terraform configurations ready for deployment</li>
+      <li><strong>Backups:</strong> Daily full backups, 30-day retention, quarterly DR drills</li>
+    </ul>
+
+    <h3>13.2 Backup Strategy</h3>
+    <pre># RDS Automated Backups
+resource "aws_db_instance" "main" {
+  backup_retention_period = 30
+  backup_window          = "03:00-04:00"
+  maintenance_window     = "sun:04:00-sun:05:00"
+  
+  # Enable automated backups
+  skip_final_snapshot = false
+  final_snapshot_identifier = "hms-final-snapshot-${timestamp()}"
+  
+  # Enable cross-region replication
+  replicate_source_db = var.enable_cross_region ? aws_db_instance.primary.arn : null
+}
+
+# S3 Cross-Region Replication
+resource "aws_s3_bucket_replication_configuration" "documents" {
+  bucket = aws_s3_bucket.documents.id
+  role   = aws_iam_role.replication.arn
+  
+  rule {
+    id     = "replicate-to-dr"
+    status = "Enabled"
+    
+    destination {
+      bucket        = aws_s3_bucket.documents_dr.arn
+      storage_class = "STANDARD_IA"
+    }
+  }
+}
+    </pre>
+
+    <h3>13.3 Scalability Strategy</h3>
+    <table>
+      <tbody><tr>
+        <th>Layer</th>
+        <th>Scaling Method</th>
+        <th>Trigger</th>
+        <th>Limits</th>
+      </tr>
+      <tr>
+        <td><strong>ALB</strong></td>
+        <td>Auto (AWS Managed)</td>
+        <td>Request volume</td>
+        <td>Unlimited</td>
+      </tr>
+      <tr>
+        <td><strong>ECS Fargate</strong></td>
+        <td>Auto Scaling Groups</td>
+        <td>CPU &gt; 70%, Memory &gt; 80%</td>
+        <td>2-20 tasks per service</td>
+      </tr>
+      <tr>
+        <td><strong>RDS PostgreSQL</strong></td>
+        <td>Read Replicas</td>
+        <td>Manual / Scheduled</td>
+        <td>Up to 5 replicas</td>
+      </tr>
+      <tr>
+        <td><strong>Redis</strong></td>
+        <td>Cluster Mode</td>
+        <td>Memory &gt; 80%</td>
+        <td>Sharding enabled</td>
+      </tr>
+      <tr>
+        <td><strong>Kafka</strong></td>
+        <td>Add Brokers/Partitions</td>
+        <td>Lag &gt; 1000 messages</td>
+        <td>3-9 brokers</td>
+      </tr>
+      <tr>
+        <td><strong>S3</strong></td>
+        <td>Unlimited</td>
+        <td>N/A</td>
+        <td>Unlimited</td>
+      </tr>
+    </tbody></table>
+
+    <h3>13.4 Auto Scaling Configuration</h3>
+    <pre># ECS Auto Scaling (Terraform)
+resource "aws_appautoscaling_target" "ecs_target" {
+  max_capacity       = 20
+  min_capacity       = 2
+  resource_id        = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.auth.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace  = "ecs"
+}
+
+resource "aws_appautoscaling_policy" "scale_up" {
+  name               = "scale-up"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.ecs_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs_target.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    }
+    target_value = 70.0
+    scale_in_cooldown  = 300
+    scale_out_cooldown = 60
+  }
+}
+    </pre>
+
+    <h3>13.5 Performance Capacity Planning</h3>
+    <table>
+      <tbody><tr>
+        <th>Scale</th>
+        <th>Hospitals</th>
+        <th>Daily Visits</th>
+        <th>Infrastructure</th>
+      </tr>
+      <tr>
+        <td><strong>Small</strong></td>
+        <td>1-5</td>
+        <td>1,000</td>
+        <td>2 ECS tasks, db.t3.medium, cache.t3.small</td>
+      </tr>
+      <tr>
+        <td><strong>Medium</strong></td>
+        <td>5-20</td>
+        <td>10,000</td>
+        <td>5 ECS tasks, db.r6g.xlarge, cache.r6g.large</td>
+      </tr>
+      <tr>
+        <td><strong>Large</strong></td>
+        <td>20-50</td>
+        <td>50,000</td>
+        <td>15 ECS tasks, db.r6g.2xlarge (Multi-AZ), cache.r6g.xlarge (cluster)</td>
+      </tr>
+      <tr>
+        <td><strong>Enterprise</strong></td>
+        <td>50-100</td>
+        <td>100,000+</td>
+        <td>30+ ECS tasks, db.r6g.4xlarge + read replicas, Redis cluster, Multi-region</td>
+      </tr>
+    </tbody></table>
+
+    <h3>13.6 Circuit Breaker Pattern</h3>
+    <pre>// circuit-breaker.ts (Node.js)
+import CircuitBreaker from 'opossum';
+
+const options = {
+  timeout: 3000, // 3 seconds
+  errorThresholdPercentage: 50,
+  resetTimeout: 30000 // 30 seconds
+};
+
+// Wrap external API calls
+const labServiceBreaker = new CircuitBreaker(async (orderId) =&gt; {
+  return await axios.get(`http://lab-service/orders/${orderId}`);
+}, options);
+
+// Fallback
+labServiceBreaker.fallback(() =&gt; {
+  return { status: 'unavailable', message: 'Lab service temporarily unavailable' };
+});
+
+// Use in controller
+app.get('/api/orders/:id', async (req, res) =&gt; {
+  try {
+    const result = await labServiceBreaker.fire(req.params.id);
+    res.json(result);
+  } catch (error) {
+    res.status(503).json({ error: 'Service temporarily unavailable' });
+  }
+});
+    </pre>
+
+    <hr>
+
+    <h2>14. Security &amp; Compliance</h2>
+    
+    <h3>14.1 Security Layers</h3>
+    <ul>
+      <li><strong>Network:</strong> WAF protection, DDoS mitigation (AWS Shield)</li>
+      <li><strong>Application:</strong> Input validation, SQL injection prevention, XSS protection</li>
+      <li><strong>Data:</strong> Encryption at rest (KMS), encryption in transit (TLS 1.3)</li>
+      <li><strong>Access:</strong> IAM least privilege, MFA for admin access</li>
+      <li><strong>Audit:</strong> CloudTrail logging, application audit logs</li>
+      <li><strong>Privacy:</strong> Data masking for PII, right to erasure support</li>
+    </ul>
+
+    <h3>14.2 Compliance Framework</h3>
+    <table>
+      <tbody><tr>
+        <th>Requirement</th>
+        <th>Implementation</th>
+      </tr>
+      <tr>
+        <td><strong>HIPAA (US)</strong></td>
+        <td>Encryption, audit logs, access controls, BAA with AWS</td>
+      </tr>
+      <tr>
+        <td><strong>GDPR (EU)</strong></td>
+        <td>Consent management, right to erasure, data portability</td>
+      </tr>
+      <tr>
+        <td><strong>India Health Data</strong></td>
+        <td>Data localization (Asia Pacific region), consent framework</td>
+      </tr>
+      <tr>
+        <td><strong>ISO 27001</strong></td>
+        <td>ISMS policies, regular security audits</td>
+      </tr>
+    </tbody></table>
+
+    <h3>14.3 Audit Logging</h3>
+    <pre>-- Audit Log Table
+CREATE TABLE audit_logs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    tenant_id UUID NOT NULL,
+    user_id UUID,
+    action VARCHAR(100) NOT NULL,
+    resource_type VARCHAR(50),
+    resource_id UUID,
+    ip_address INET,
+    user_agent TEXT,
+    request_payload JSONB,
+    response_status INTEGER,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Index for querying
+CREATE INDEX idx_audit_tenant_time ON audit_logs(tenant_id, created_at DESC);
+CREATE INDEX idx_audit_user ON audit_logs(user_id, created_at DESC);
+
+-- Example audit log entry
+{
+  "tenant_id": "hosp_123",
+  "user_id": "user_456",
+  "action": "PATIENT_RECORD_VIEWED",
+  "resource_type": "PATIENT",
+  "resource_id": "pat_789",
+  "ip_address": "203.0.113.0",
+  "user_agent": "Mozilla/5.0...",
+  "created_at": "2023-10-27T10:30:00Z"
+}
+    </pre>
+
+    <hr>
+
+    <div class="text-center">
+      <h2>15. Conclusion</h2>
+      <p>
+        This architecture provides a <strong>production-ready, enterprise-grade</strong> foundation for a multi-tenant hospital management platform. Key highlights:
+      </p>
+      <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+        <li>✅ <strong>Multi-tenant isolation</strong> with PostgreSQL RLS and schema separation</li>
+        <li>✅ <strong>Polyglot microservices</strong> - Python FastAPI for AI, Node.js for I/O</li>
+        <li>✅ <strong>Modern frontend</strong> - React/TypeScript/Shadcn UI with type safety</li>
+        <li>✅ <strong>Hybrid database strategy</strong> - PostgreSQL + DocumentDB for flexibility</li>
+        <li>✅ <strong>Event-driven architecture</strong> - Kafka for asynchronous workflows</li>
+        <li>✅ <strong>AI-ready</strong> - RAG, vector search, predictive analytics</li>
+        <li>✅ <strong>Security-first</strong> - OAuth 2.0, encryption, audit logging</li>
+        <li>✅ <strong>Cloud-native</strong> - AWS ECS, RDS, S3, ElastiCache</li>
+        <li>✅ <strong>Scalable</strong> - Auto-scaling from 1 to 100+ hospitals</li>
+        <li>✅ <strong>Observable</strong> - Comprehensive monitoring and alerting</li>
+      </ul>
+      <p style="margin-top: 30px;">
+        <strong>Estimated Infrastructure Cost (Medium Scale - 20 hospitals, 10K daily visits):</strong><br>
+        $8,000 - $12,000 per month
+      </p>
+    </div>
+
+    <hr>
+
+    <div class="text-center">
+      <p class="italic" style="font-size: 10pt; color: #666;">
+        <strong>Document Version:</strong> 2.0<br>
+        <strong>Last Updated:</strong> February 12, 2026<br>
+        <strong>Classification:</strong> Internal Use Only<br>
+        <strong>Author:</strong> Principal System Architect
+      </p>
+      <p class="italic" style="margin-top: 20px;">End of Technical Architecture Report</p>
+    </div>
+  
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body></html>
